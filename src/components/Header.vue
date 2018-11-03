@@ -1,31 +1,33 @@
 
 <template>
 <header class="main-header">
-      <div class="main-header__container"><a class="main-header__logo" href="index-en.html">
+      <div class="main-header__container"><router-link to="/" class="main-header__logo" >
         <img class="u-hide-sm" src="../assets/img/logo-wide.png"/>
         <img class="u-hide-lg" src="../assets/img/logo-wh.png"/>
-      </a>
+      </router-link>
       <a class="main-header__menuToggler"  :class="{'main-header__menuToggler--active':isMenuActive}"  @click.prevent="toggleMenu">
         <span></span><span></span><span></span></a>
         <div class="main-header__sideMenu" :class="{'main-header__sideMenu--active':isMenuActive}">
           <nav class="main-header__nav">
-            <ul class="main-header__navList">
+            <!-- <ul class="main-header__navList">
                <li><router-link to="/">Home</router-link></li>
-              <li><router-link to="/admin">admin</router-link></li>
-            </ul>
+              <li></li>
+            </ul> -->
           </nav>
-          <p v-if="user">welcome! {{fullName}}
-            <button @click="logOut" class="btn btn--sm red_bg">logout</button>
+          <p v-if="user" class="main-header__user" >
+            welcome! {{fullName}}
+            <button @click="logOut" class="btn btn--xs red_bg main-header__userLogout">logout</button>
+            <router-link to="/admin" class="btn btn--xs blue_bg main-header__userLogout">admin</router-link>
           </p>
-          <section v-if="logInfo && !user">
+          <section v-if="logInfo && !user" class="main-header__user">
             <div class="form-row form-row--vert">
-              <label for="firstname">firstname</label> <input type="text" name="" v-model="logInfo.firstName" id="firstname">
+              <input  class="input--nomb input--sm" type="text" name="" v-model="logInfo.firstName" id="firstname">
             </div>
             <div  class="form-row form-row--vert">
-              <label for="lastname">lastname</label> <input type="text" name="" v-model="logInfo.lastName" id="lastname">
+              <input  class="input--nomb input--sm" type="text" name="" v-model="logInfo.lastName" id="lastname">
             </div>
             <div  class="form-row form-row--vert">
-              <button @click="logUserin(logInfo)" class="btn btn--sm green_bg">login</button>
+              <button @click="logUserin(logInfo)" class="btn btn--sm  green_bg">login</button>
             </div>
           </section>
         </div>

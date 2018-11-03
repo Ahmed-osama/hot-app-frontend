@@ -156,6 +156,13 @@
     &--left{
         float:$left;
     }
+    &--mleft{
+
+        margin-#{$left}:$space ;
+    }
+    &--mw50{
+        min-width: 50px
+    }
     &--right{
         float:$right;
     }

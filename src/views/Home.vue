@@ -1,26 +1,25 @@
 
 <template>
-  <div>
   
-    <p> Should provide an intuitive way to present more information about a hotel once some form of interaction takes place</p>
   
-    <div class="container">
+   
       <div class="row">
         <div class="col-md-3">
           <hotels-filter v-if="showFilters" class="container__filter" />
         </div>
         <div class="col-md-9">
-          <div class="row">
   
+          <transition-group class="row" name="fade">
             <div class="col-md-4" v-for="hotel in filterdHotels" :key="hotel.id">
   
               <hotel-card :hotel="hotel" />
             </div>
-          </div>
+          </transition-group>
+  
         </div>
       </div>
-    </div>
-  </div>
+   
+ 
 </template>
 
 <script>

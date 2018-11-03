@@ -26,7 +26,7 @@
       <button @click="addHotel">add hotel</button>
     </div>
 
-    <div v-if="hotels.length > 0">
+    <div v-if="hotels.length > 0 && newRoom">
       <h2>Add Room</h2>
       <input type="text" v-model="newRoom.name"><br>
       <select v-model="newRoom.hotelId">

@@ -51,6 +51,13 @@
             outline: none;
             border: 1px solid lighten($primaryColor,10%);
         }
+    
+    }
+    .input--nomb{
+        margin-bottom: 0 !important;
+    }
+    .input--sm{
+       height: 30px !important;
     }
     textarea{
         height: auto;
@@ -148,11 +155,13 @@
             width: 9px;
             height: 9px;
             border-radius: 50%;
+            top: 4px;
+            border:none !important;
         }
-        &--radio &__input:checked + &--radio &__preview{
+        &--radio &__input:checked + &__preview{
             background: $wh;
         }
-        &--radio &__input:checked + &--radio &__preview:after{
+        &--radio &__input:checked + &__preview:after{
             background: $primaryColor;
         }
 
@@ -192,6 +201,7 @@
 //[3] - form row
     .form-row{
         display: flex;
+        align-items: center;
         &--vert {
             flex-direction: column;
         }

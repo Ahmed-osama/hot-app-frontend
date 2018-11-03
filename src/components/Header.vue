@@ -42,8 +42,8 @@ export default {
     ...mapActions(["logUserin", "logUserout"]),
     createLogForm() {
       this.logInfo = {
-        firstName: "Ahmed",
-        lastName: "Osama"
+        firstName: "John",
+        lastName: "Doe"
       };
     },
     logOut() {

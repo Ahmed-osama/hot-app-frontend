@@ -15,7 +15,10 @@
     <h4>price_category</h4>
     <ul>
       <li v-for="category of price_category" :key="category">
-        <input type="radio"  name="price_category" :id="'price_'+category" :value="category" v-model="selectedPrice_category" >
+        <span class="input-checkbox">
+          <input type="radio" class="input-checkbox__input" name="price_category" :id="'price_'+category" :value="category" v-model="selectedPrice_category" >
+          <span class="input-checkbox__preview"></span>
+        </span>
         <label :for="'price_'+category">{{category || 'all'}}</label>
       </li>
     </ul>

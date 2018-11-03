@@ -43,7 +43,7 @@
         width:100%;
         max-width:100%;
         font-family: $bodyFont;
-        // margin-bottom: $space/2;
+        margin-bottom: $space/2;
         @include placeholder($midGry);
         @include rem(16);
         border-radius:0;
@@ -192,10 +192,14 @@
 //[3] - form row
     .form-row{
         display: flex;
+        &--vert {
+            flex-direction: column;
+        }
         & > *{
             flex-grow: 1;
             & + & {
                 margin-#{$left}:20px;
             }   
         }
+        
     }

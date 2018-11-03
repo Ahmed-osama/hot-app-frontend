@@ -3,25 +3,20 @@
   <div>
   
     <p> Should provide an intuitive way to present more information about a hotel once some form of interaction takes place</p>
-   
+  
     <div class="container">
-      <hotels-filter v-if="showFilters" class="container__filter" />
-      <div class="container__hotels">
-        <div v-for="hotel in filterdHotels" :key="hotel.id">
-          <router-link :to="`/hotel-detail/${hotel.id}`"><img :src="hotel.images[0]" :alt="hotel.name"></router-link>
-          <h1>
-            <router-link :to="`/hotel-detail/${hotel.id}`">
-              {{hotel.name}}</router-link>
-          </h1>
-          <h2>distance to venue : {{hotel.distance_to_venue}}</h2>
-          <p v-if="hotel.rating">rating : <strong>{{hotel.rating.toFixed(1)}}</strong></p>
-          <p>price category : <strong>{{hotel.price_category}}</strong></p>
-          <h4>amenities :
-            <ul>
-              <li v-for="aminity of hotel.amenities" :key="aminity">{{aminity}}</li>
-            </ul>
-          </h4>
-          <hr>
+      <div class="row">
+        <div class="col-md-3">
+          <hotels-filter v-if="showFilters" class="container__filter" />
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+  
+            <div class="col-md-4" v-for="hotel in filterdHotels" :key="hotel.id">
+  
+              <hotel-card :hotel="hotel" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -32,12 +27,15 @@
 // @ is an alias to /src
 
 import { mapState, mapGetters, mapActions } from "vuex";
+
 import Filters from "@/components/Filters.vue";
+import Card from "@/components/Card.vue";
 
 export default {
   name: "home",
   components: {
-    "hotels-filter": Filters
+    "hotels-filter": Filters,
+    "hotel-card": Card
   },
   computed: {
     ...mapGetters(["filterdHotels"]),
@@ -53,11 +51,6 @@ export default {
 </script>
 
 <style lang="sass">
-  .container
-    display: flex
-    &__filter
-      flex-basis: 20%
-    &__hotels
-      flex-basis: 80%
+  
 </style>
 

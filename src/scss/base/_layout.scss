@@ -1,0 +1,212 @@
+/*
+    # Layout is customized for every project
+    1 - layout
+    1 - section
+    3 - grid
+*/
+//[1] - layout
+.flex{
+     display: flex;
+    &--wrap{
+        flex-wrap: wrap;
+    }
+}
+.layout{
+    display: flex;
+    flex-direction: column;
+     
+    @include mediaMin(1024px){
+        flex-direction: row;
+        &--column{
+            flex-direction:column;
+        }
+        &--wrap{
+            flex-wrap: wrap;
+        }
+        &__item{
+
+            &--grow{
+                flex-grow:1;
+            }
+            &--content{
+                flex-grow:1;
+                padding:0 15px;
+            }
+            &--aside{
+                padding:0 15px;
+                flex-basis:330px;
+            }
+        }
+    }
+}
+
+
+
+//[2] - Sections
+    .section{
+        padding:$space 0;
+        &--offWhite{
+            background: $offWhite;
+        }
+        &--gry{
+            background: $lightGry;
+        }
+        &-nopt{
+            padding-top: 0;
+        }
+        &--nopb{
+            padding-bottom: 10px;
+        }
+        &--nop{
+           padding: 0;
+        }
+        &--nopt{
+            padding-top: 0;
+        }
+        &--nopt-xs{
+            @include mediaMax(480px){
+                padding-top: 0;
+            }
+        }
+        &--fullPadding{
+          padding: $space;
+        }
+        &--downShadow{
+            box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        &__mainTitle{
+            @include lineHeight(1);
+            margin-bottom:$space;
+            &--center{
+                text-align: center;
+            }
+        }
+        &__abstract{
+            color: $secondaryText;
+            margin-bottom:$space;
+            @include mediaMin(1024px){
+                margin-bottom: 2*$space;
+            }
+        }
+
+        &__Img{
+            margin-bottom:$space;
+            @include mediaMin(1024px){
+                margin-bottom:0;
+            }
+        }
+        @include mediaMin(1024px){
+            padding:2*$space 0 $space;
+            &--fullPadding{
+               padding:2*$space;
+            }
+            &__mainTitle{
+                @include lineHeight(2);
+            }
+            &__TextArea{
+                padding-#{$right}:2*$space;
+            }
+        }
+    }
+
+
+//[3] Container
+  
+
+  .container {
+    margin-#{$right}: auto;
+    margin-#{$left}: auto;
+    padding-#{$left}: $grid-space;
+    padding-#{$right}: $grid-space;
+    &--main{
+      padding-top: $grid-space-sm;
+      height: calc(100vh - 50px);
+      @include mediaMin(768px){
+        height: calc(100vh - 80px);
+        padding-top: 30px;
+      }
+    }
+    &--height100{
+        height: 100%;
+    }
+    &--center{
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+    @include mediaMin(480px) {
+       max-width: 480px;
+    }
+    @include mediaMin(640px) {
+      max-width: 640px;
+    }
+    @include mediaMin(960px) {
+      max-width: 960px;
+    }
+    @include mediaMin(1280px) {
+      max-width: 1280px;
+    }
+  }
+//[4] Rows
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-#{$left}: -1*$grid-space ;
+    margin-#{$right}: -1*$grid-space ;
+    
+  }
+ 
+
+
+//[5] Grid columns
+
+  //[5.1] - column defaults
+    %col-basic-setting{
+      position: relative;
+      flex-basis: 100%;
+      max-width: 100%;
+      min-height: 1px;
+        padding-#{$left}: $grid-space;
+        padding-#{$right}: $grid-space;
+        
+    }
+    @for $i from 1 through 12 {
+      .col-xs-#{$i},
+      .col-ls-#{$i},
+      .col-sm-#{$i},
+      .col-md-#{$i},
+      .col-lg-#{$i}{
+        @extend %col-basic-setting;
+      }
+    }
+
+  //[5.2] - Mobile
+    @include groupSelectors(12, "xs");
+    @include initGrid("xs", false, false, false);
+  
+  //[5.3] - Phablet
+    @include mediaMin(480px) {
+      @include groupSelectors(12, "ls");
+      @include initGrid("ls", false, false, false);
+    }
+
+  //[5.4] - Tablet-portrait
+    @include mediaMin(640px) {
+      @include groupSelectors(12, "sm");
+      @include initGrid("sm", false, false, false);
+    }
+  
+  //[5.5] - Tablet-landscape
+    @include mediaMin(960px) {
+      @include groupSelectors(12, "md");
+      @include initGrid("md", false, false, false);
+    }
+  
+  //[5.5] - Desktop
+    @include mediaMin(1280px) {
+      @include groupSelectors(12, "lg");
+      @include initGrid("lg", false, false, false);
+    }

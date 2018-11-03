@@ -1,0 +1,79 @@
+//colors
+		
+	//pallet
+		$bk      : #000000;
+		$blue    : #577eb9;
+		$green   : #329e37;
+		$orange  : #FF5722;
+		$purple  : #723e8f;
+		$red     : #e64129;
+		$teal    : #009688;
+		$pink    : #e91e63;
+		$ts      : transparent;
+		$ts-bk-15: rgba(0,0,0,0.15);
+		$ts-bk-50: rgba(0,0,0,0.5);
+		$wh      : #fff;
+		$yellow  : #feea3a;
+
+		//Grys
+			$darkGry : #212121;
+			$gry     : #757575;
+			$midGry  : #bcbcbc;
+			$lightGry: #BDBDBD;
+			$offWhite: #f2f2f2;
+
+	//Socials
+		$facebook        : #3b5998;
+		$googlePlus      : #e02f2f;
+		$instagram       : #405de6;
+		$twitter         : #55acee;
+		$youtube         : #cd201f;
+		$rss             : #f26522;
+
+	//theme
+		$accentColor    : $bk;
+		$dviderColor    : $offWhite;
+		$primaryColor   : $red;
+		$primaryText	: $darkGry;
+		$secondaryText	: $gry;
+
+//screens
+	$mobile    : 321px;
+	$phablet   : 481px;
+	$tablet-PRT: 769px;
+	$tablet-LS : 1025px;
+	$desktop   : 1281px;
+
+//spaces
+	$fontSize  		:	 18;
+	$lineHeight		:	1.5555556;
+	$space     		:	20px ;
+	$space-sm  		:	10px ;
+	$grid-space		:	10px;
+	$grid-space-sm  :	$space-sm/2 ;
+	$pPercent       :	7.6%;
+
+
+//fonts
+	$titleFont : "";
+	$bodyFont  : "";
+
+//direction
+	$left      : "";
+	$right     : "";
+	$reverse   : "";
+		
+	@if($direction == 'rtl'){
+		$titleFont: 'brushez';
+		$bodyFont : 'nassim';
+		$left     : right;
+		$right    : left;
+		$reverse  : -1;
+	}
+	@else{
+		$titleFont: 'roboto';
+		$bodyFont : 'roboto';
+		$left     : left;
+		$right    : right;
+		$reverse  : 1;
+	}

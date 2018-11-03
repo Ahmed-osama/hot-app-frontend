@@ -1,0 +1,1025 @@
+/*
+    [1] - Presets
+    [2] - Hover
+    [3] - Absoluted Items
+    [4] - Share
+    [5] - Fav
+    [6] - Icon
+    [7] - Padge
+    [8] - Image
+    [9] - Caption
+    [10] - MaxTitle
+    [11] - Abstract
+    [12] - Modifiers
+*/
+
+//[1] - Presets
+%postGradient {
+    #{$right}: 0;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0.6;
+    background: linear-gradient( 0deg, rgb(29,29,27) 0%, rgba(29,29,27,0.5) 50%, rgba(255,255,255,0) 100%);
+    border-radius: 3px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+
+@keyframes fitIn {
+    from {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.post-view {
+margin-bottom: $space;
+position: relative;
+transition: 0.2s;
+//[2] - HOVER
+    &:not(&--over):hover &__maxTitle{
+        color:inherit;
+    }
+    &:not(.post-view--over):hover{
+        .post-view__caption{
+            //background: #d1d7e1;
+        }
+    }
+    &--videoLook:hover &__caption{
+        background: darken(#2f2f2f, 5%) !important;
+    }
+    
+    
+//[3] - ABSOLUTED ITEMS
+    &__link,
+    &__img img,
+    &__img iframe,
+    &__img &__video{
+        #{$left}: 0;
+        #{$right}: 0;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateZ(0) scale(1.0, 1.0);
+        background: $ts;
+        bottom: 0;
+        margin: auto;
+        max-height: 100%;
+        max-width: 100%;
+        position: absolute;
+        top: 0;
+        transition: 1s;
+    }
+    
+    &__img iframe,&__img &__video{
+        z-index: 2;
+    }
+    &__img iframe{
+        width: 100%;
+        height: 100%;
+    }
+    &__img img{
+        min-height:100%;
+        min-width:100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    &__link {
+        z-index: 3;
+    }
+//[4] - SHARE
+    &__share {
+        #{$right}: 15px;
+        display: none;
+        opacity: 0;
+        position: absolute;
+        top: 15px;
+        transform: scale(0);
+        transition: 0.3s;
+        z-index: 4;
+        @include mediaMin(768px) {
+            display: block
+        }
+    }
+    &--horizontal-sm &__share{
+        display: none;
+    }
+
+//[6] - ICON
+    &__icon {
+        #{$left}:15px;
+        bottom: 15px;
+        @include rem(50);
+        border-radius: 50%;
+        color: $wh;
+        display: block;
+        line-height: 35px;
+        margin: auto;
+        position: absolute;
+        text-align: center;
+        z-index: 3;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        display: inline-flex;
+        &:hover{
+            svg{
+                fill: #d1d7e1;   
+            }
+        }
+        &-inner{
+            @include rem(50);
+            fill:$wh;
+            width: 35px;
+            height: 35px;
+        }
+    }
+    &--horizontal-sm &__icon{
+        #{$left}: 35px;
+        bottom: 20px;
+        //background: rgba(255,255,255,0.2);
+    }
+    &--card &__icon{
+        bottom: 10px;
+        #{$right}: 10px;
+        margin: 0;
+        #{$left}: auto;
+    }
+    &__albumcount{
+        position: absolute;
+        z-index: 3;
+        width: 32px;
+        height: 26px;
+        padding-top: 3px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        bottom: 15px;
+        #{$right}: 15px;
+        &-num, &-icon{
+            @include absoluteCenter();
+            position: absolute;
+        }
+        &-icon{
+            z-index: 2;
+            fill: $bk;
+            width: 28px;
+            height: 24px;
+        }
+        &-num{
+            display: inline-flex;
+            z-index: 3;
+            @include rem(12);
+            align-items: center;
+            justify-content: center;
+            font-weight:500;
+            padding-top: 2px;
+            color: $wh;
+        }
+    }
+    &--album &__albumcount{
+        display: flex;
+    }
+//[7] - PADGE
+    &__padge{
+        //@extend .green_bg;
+        //background: #333333;
+        background: rgba(0,0,0,0.8);
+        #{$left}:15px;
+        @include rem(13);
+        border-radius: 4px;
+        bottom:15px;
+        color:$wh;
+        display: inline-block;
+        height: 30px;
+        line-height:30px;
+        padding:0 15px;
+        position: absolute;
+        z-index: 3;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        &:hover{
+            color:$wh;
+            background: $green;
+        }
+        @include mediaMin(768px) {
+            #{$left}:15px;
+            bottom:15px;
+            
+        }
+    }
+    &--card &__padge{
+        //bottom: 0;
+        //border-radius: 0;
+    }
+    &--discover &__padge{
+        background: transparent;
+        @include rem(25);
+    }
+    &--horizontal-sm &__padge{
+        display: none;
+    }
+    @include mediaMax(959px) {
+        &--horizontal-mob &__padge{
+            display: none;  
+        }
+
+    }
+
+//[8] - IMG
+    &__img {
+        overflow: hidden;
+        padding-top: 8*$pPercent;
+        position: relative;
+        background: $wh;
+        border-radius: 3px;
+        &:after {
+           @extend  %postGradient;
+        
+        }
+        img {
+            z-index: 0;
+            border-radius: 3px;
+        }
+    }
+    &--card &__img{
+        padding-top:57.5%;
+       
+    }
+    &--featured &__img{
+        padding-top: 51.4%;
+    }
+    &--imgauto  &__img{
+        position: relative;
+        padding-top: 0;
+        height: 400px;
+        img{
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            max-height: initial;
+            max-width: 100%;
+            top: 0;              
+            left: 0;
+            right: 0;
+            margin:0 auto;
+        }
+    }
+    &--state  &__img{
+        height: 250px;
+        border-radius: 0;
+        &:after{
+            border-radius: 0;
+        }
+        img{
+            border-radius: 0;
+        }
+    }
+    @include mediaMin(960px) {
+        &--card-desktop &__img{
+            padding-top:55.6%;
+            
+        }
+        &--cardBounded-desktop &__img{
+            box-shadow: none;
+            &, &:after, img{
+                border-radius: 4px 4px 0 0;
+
+            }
+        }
+    }
+    &--cardBounded &__img{
+        box-shadow: none;
+        &, &:after, img{
+            border-radius: 4px 4px 0 0;
+
+        }
+    }
+    &--cardSimple &__img{
+        @include shadow(3);
+    }
+    &--iframe &__img{
+        padding-top: 56%;
+    }
+   
+    &--horizontal &__img{
+        #{$left}: 0;
+        height:80px;
+        padding: 0;
+        position:absolute;
+        top: 0;
+        width: 110px;
+
+        @include mediaMin(768px) {
+            height:7*$space;
+            width: 10*$space;
+        }
+    }
+    @include mediaMax(959px) {
+        &--horizontal-mob &__img{
+            #{$left}: 0;
+            height:3*$space;
+            padding: 0;
+            position:absolute;
+            top: 0;
+            width: 4.5*$space;
+            @include mediaMin(375px) {
+                height:3.5*$space;
+                width: 5*$space;
+            }
+            @include mediaMin(768px) {
+                height:7*$space;
+                width: 10*$space;
+            }
+        }
+    }
+    &--horizontal-sm &__img{
+        height:70px;
+        width: 100px;
+        img{
+            border-radius: 0;
+        }
+        @if($direction == 'ltr'){
+            border-radius: 3px 0 0 3px;
+        }
+        @else{
+            border-radius: 0 3px 3px 0;
+        }
+    }
+
+    &--gallery &__img{
+        padding-top: 58.5%;
+        min-height: 270px;
+        @include mediaMin(960px){
+            padding-top: 38.5%;
+        }
+        
+        &:after{
+            display: none;
+        }
+    }
+    &__gallery{
+        display: none;
+    }
+
+    &--gallery &__gallery{
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+        top: 0;
+        #{$left}:0;
+        height: 100%;
+        width: 100%;
+        @include mediaMin(960px){
+            flex-direction:row;
+        }
+        img{
+            position: relative;
+            width: 100%;
+            z-index: 1;
+        }
+        &Master{
+            @extend .col-md-8;
+            padding: 0;
+            margin-bottom:2px;
+            &:after{
+                @extend %postGradient;
+            }
+            @include mediaMax(959px){
+                flex-basis: 60%;
+            }
+            @include mediaMin(960px){
+                margin-#{$right}:2px;
+                margin-bottom: 0;
+                img{
+                    @if($direction == 'rtl'){
+                        border-radius: 0 3px 0 0;
+                    }@else{
+                        border-radius: 3px 0 0 0;
+                    }
+                }
+            }
+
+        }
+        &Thumbs{
+            @extend .col-md-4;
+            display: flex;
+            flex-direction:row;
+            padding: 0;
+            @include mediaMax(959px){
+                flex-basis: 40%;
+            }
+            @include mediaMin(960px){
+                flex-direction: column;
+            }
+        }
+
+        &firstthumb, &Lastthumb{
+            flex-grow: 1;
+            position: relative;
+            
+            img{
+                min-height: 100%;
+                position: absolute;
+            }
+            &:after{
+                @extend  %postGradient;
+            }
+        }
+        &firstthumb{
+            margin-#{$right}:2px; 
+            @include mediaMin(960px){
+                margin-bottom: 2px;
+                margin-#{$right}:0px; 
+
+               
+                img, &:after{
+                   
+                    @if($direction == 'rtl'){
+                        border-radius: 0 3px 0 0;
+                    }@else{
+                        border-radius: 0  0  0 3px;
+                    }
+                    
+                }
+                   
+            }
+        }
+        &Lastthumb{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            @include mediaMin(960px){
+                img, &:after{
+                    @if($direction == 'rtl'){
+                        border-radius: 0 0 3px 0;
+                    }@else{
+                        border-radius: 0  0  0 3px;
+                    }
+                    
+                }
+            }
+            
+        }
+        &Num{
+            display: inline-flex;
+            position: absolute;
+            text-align: center;
+            @include absoluteCenter();
+            color:$wh;
+            z-index: 2;
+            font-weight:500;
+            align-items: center;
+            justify-content: center;
+            &:after{
+                @extend .post-view__img:after;
+            }
+        }
+    }
+    &--championshipBox &__img{
+        height: 70px;
+        width: 70px;
+        margin-top: 15px;
+        position: inherit;
+        margin: 0 auto;
+        background: transparent;
+        @include mediaMin(768px){
+            position: absolute;
+            height: 100px;
+            width: 100px;
+        }
+        &:after{
+            display: none;
+        }
+    }
+    &--cricleView &__img{
+        border-radius: 50%;
+    }
+
+    
+
+
+
+
+//[9] - CAPTION
+    &__caption {
+        @include rem(18);
+        margin: 0;
+    }
+    &--over &__caption {
+        #{$left}: 0;
+        background: $ts;
+        bottom: 20px;
+        color: $wh;
+        display: block;
+        line-height: 1.75em;
+        padding: 10px 15px;
+        position: absolute;
+        text-align: center;
+        text-shadow: 1px 1px 2px $ts-bk-50;
+        width:100%;
+        z-index: 1;
+        @include mediaMin(1024px) {
+            #{$left}: 10px;
+            bottom: 10px;
+            width: 90%;
+            width: calc(100% - 20px);
+        }
+    }
+    
+    &--card &__caption{
+        padding-top: 0;
+      
+        @include mediaMin(480px) {
+            height:170px;
+           
+        }
+    }
+    @include mediaMin(960px) {
+        &--card-desktop &__caption{
+            padding-top: 0;
+            @include mediaMin(768px) {
+                height:170px;
+            }
+        }
+        &--cardBounded-desktop &__caption{
+            padding: 20px;
+            padding-top: 7px;
+            padding-#{$right}: 30px;
+            background:$offWhite;
+            border-radius: 0 0 3px 3px;
+            @include mediaMin(768px) {
+                height:133px;
+            }
+        }
+    }
+    &--cardNoabstract &__caption{
+        @include mediaMin(768px) {
+            height: 90px;
+        }
+    }
+    
+    &--cardBounded &__caption{
+        padding: 20px;
+        padding-top: 15px;
+        background: $wh;
+        border-radius: 0 0 3px 3px;
+        @include mediaMin(768px) {
+            height:210px;
+        }
+    }
+    &--cardBounded.post-view--cardNoabstract &__caption{
+        @include mediaMin(480px) {
+            height:109px;
+        }
+    }
+    &--cardBoundedSimple &__caption{
+        padding:0  $space ;
+        @include mediaMin(480px) {
+            height: 2*$space;
+        }
+        @include mediaMin(768px) {
+            height:2*$space;
+        }
+    }
+    &--cardFreeCaption &__caption{
+        height: auto;
+    }
+    &--horizontal &__caption{
+        padding-top:$space/2;
+        padding-#{$left}: $space/2;
+        @include mediaMin(768px) {
+            padding: $space 0 0 0;
+        }
+    }
+    &--discover &__caption{
+        background:$wh;
+        height: auto;
+        @include mediaMin(959px) {
+            height: 170px;
+            background:$wh;
+        }
+    }
+    
+    @include mediaMax(959px) {
+        &--horizontal-mob &__caption{
+            padding-#{$left}: $space/2;
+            @include mediaMin(768px) {
+                padding: $space 0 0 0;
+            }
+        }
+    }
+    &--horizontal-sm &__caption{
+        // border-bottom: 1px solid $dviderColor;
+        height:70px;
+        padding-#{$left}: $space/2;
+        padding-top:0;
+        display: table;
+        flex-grow: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        //background: $offWhite;
+        background: $lightGry;
+        padding-left: 10px;
+        border-radius: 3px 0 0 3px;
+        @if($direction == 'rtl'){
+            border-radius: 3px 0 0 3px;
+        }
+        @else{
+            border-radius: 0 3px 3px 0;
+        }
+    }
+    &--championshipBox &__caption{
+        padding-top: 0;
+        text-align: center;
+        margin-top: 15px;
+        @include mediaMin(768px){
+            padding-top: 0;
+            text-align: inherit;
+        }
+    }
+    &--featured &__caption{
+        @include mediaMin(960px){
+            height: 263px;
+        }
+    }
+    &--videoLook &__caption{
+        background: #2f2f2f;
+        color: $wh;
+        
+    }
+   
+    
+//[10] - MAXTITLE
+    &__maxTitle {
+        display: block;
+        font-weight: 400;
+        margin: 0;
+        max-height: 100%;
+        overflow: hidden;
+        vertical-align: middle;
+        line-height: 1.5em;
+        @include mediaMin(768px) {
+            max-height: 60px;
+        }
+    }
+    &__maxTitle +  &__date{
+        margin-top: 10px;
+     }
+
+    &--horizontal &__maxTitle{
+        height: auto;
+        max-height:2*$space;
+        
+    }
+    @include mediaMax(959px) {
+        &--horizontal-mob &__maxTitle{
+            height: auto;
+            @include rem(17);
+            max-height:2*$space;
+        }
+    }
+    &--horizontal-sm &__maxTitle{
+        //@include rem(17);
+        overflow: hidden;
+        max-height: 51px;
+        transform: translateY(-3px);
+        font-size: 14px;
+        line-height: 26px;
+        font-weight:500;
+        
+    }
+    &--over &__maxTitle{
+        height: auto;
+        max-height: 60px;
+    }
+    // &--state &__maxTitle{
+    //     text-align: $left;
+    //     @include rem(32);
+    //     line-height: 1.2em;
+    //     max-height: 42px;
+    //     overflow: hidden;
+    //     margin-bottom: 0;
+    // }
+    &--card &__maxTitle{
+        margin-top: 10px;
+        @include rem(19);
+        @include mediaMin(768px) {
+            margin-top: 10px;
+            font-weight:500;
+            font-size: 16px;
+            line-height: 26px;
+            max-height: 50px;
+            height: 50px;
+        }
+    }
+    &--gallery &__maxTitle{
+        @include rem(23);
+        max-height: 65px;
+    }
+    @include mediaMin(960px) {
+        &--card-desktop &__maxTitle{
+            margin-top: 10px;
+            @include rem(19);
+            
+            @include mediaMin(768px) {
+                margin-top: 10px;
+                max-height: 82px;
+                height: 82px;
+            }
+        }
+        &--cardBounded-desktop &__maxTitle{
+           margin-top: 0;
+        }
+        &--featured.post-view--cardBounded &__maxTitle{
+            margin-top: 0;
+        }
+
+    }
+
+    &--cardSimple &__maxTitle{
+        max-height:1.5*$space;
+        @include lineHeight(1.5);
+    }
+    
+    &--cardBounded &__maxTitle{
+       
+        margin-top: 0;
+    
+    }
+    &--cardBoundedSimple &__maxTitle{
+        @include lineHeight(2);
+        @include rem(18);
+        font-weight: 300;
+        margin-top: 0;
+        max-height:2*$space;
+        max-width: 100%;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    &--championshipBox &__maxTitle{
+        @include rem(25);
+    }
+    &--discover &__maxTitle{
+        @include rem(25);
+    }
+    &--championBox &__maxTitle{
+        line-height: 1.2rem;
+    }
+    &--horizontal-mob &__maxTitle{
+        @include mediaMax(959px) {
+           
+            max-height:45px;
+            line-height: 1.47em;
+        }
+    }
+    &--cardFreeCaption &__maxTitle{
+        font-weight:500;
+        font-size: 16px;
+        line-height: 26px;
+        max-height: 50px;
+        height: auto;
+    }
+    &--featured &__maxTitle{
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight:500;
+        line-height: 31px;
+        max-height: 60px;
+    }
+    // &-horizontal-sm &__maxTitle{
+    //     font-size: 14px;
+    //     line-height: 26px;
+    //     font-weight:500;
+    // }
+
+//[11] - ABSTRACT
+    &__abstract{
+        line-height: 1.7em;
+        color:$primaryText;
+        display: none;
+        max-height: 55px;
+        overflow: hidden;
+        font-weight: 300;
+        @include rem(18);
+        @include mediaMin(768px) {
+            display: block;
+        }
+    }
+    &__maxTitle + &__abstract{
+        margin-top: 15px;
+    }
+
+    &--cardBoundedSimple &__abstract{
+        display: none;
+    }
+    &--featured &__abstract{
+       max-height: 83px;
+       line-height: 28px;
+       display: block;
+       @include rem(17);
+    }
+   
+    &__abstract + &__date{
+        margin-top: 15px;
+        @include rem(14);
+        //color: $date;
+        color: $bk;
+    }
+    &--championshipBox &__abstract{
+        margin-top: 5px;
+        white-space: normal;
+        @include rem(18);
+        display: block;
+    }
+
+//DATE
+    &__date{
+        @include rem(14);
+        font-weight: 300;
+        color: $bk;
+        position: relative;
+        .u-icon{
+            display: none;
+            width: 20px;
+            height: 20px;
+            transform:translateX($reverse*-4px);
+            margin-#{$right}:4px;
+        }
+        &:before{
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: #d1d7e1;
+            display: inline-block;
+            margin-#{$right}: 7px;
+            border-radius: 50%;
+        }
+    }
+
+    &--horizontal-mob &__date, &--horizontal &__date{
+        @include rem(12);
+        line-height: 14px;
+        margin-top: 3px;
+        @include mediaMin(768px){
+            margin-top: 10px;
+        }
+        .u-icon{
+            width: 12px;
+            height: 12px;
+            transform:translateY(1px);
+            margin-#{$right}:5px;
+            display: none;
+        }
+    }
+    &--featured &__date{
+        @include mediaMin(768px){
+            position: absolute;
+            bottom: 20px;
+        }
+    }
+    &--videoLook &__date{
+        color: $wh;
+        &:before{
+            background: $wh;
+        }
+    }
+  
+    
+//[12] MODIFIERS
+    
+    
+    &--horizontal{
+        height:3*$space;
+        padding-#{$left}:4.5*$space;
+        margin-bottom: $space/2;
+
+        @include mediaMin(375px) {
+            height:3.5*$space;
+            padding-#{$left}: 5*$space;
+        }
+        @include mediaMin(768px) {
+            margin-bottom: $space;
+            height:7*$space; 
+            padding-#{$left}:11*$space;
+        }
+        &-sm{
+            height:70px;
+            padding-#{$left}:100px;
+            margin-bottom: 10px;
+            @include mediaMin(768px) {
+                margin-bottom: 15px;
+            }
+        
+        }
+    }
+    
+    @include mediaMax(959px) {
+        &--horizontal-mob{
+            height:3*$space;
+            padding-#{$left}:4.5*$space;
+            margin-bottom: $space/2;
+
+            @include mediaMin(375px) {
+                height:3.5*$space;
+                padding-#{$left}: 5*$space;
+            }
+            @include mediaMin(768px) {
+                margin-bottom: $space;
+                height:7*$space; 
+                padding-#{$left}:11*$space;
+            }
+        }
+    }
+    &--card{
+        margin-bottom: $space;
+        &Simple{
+            margin-bottom: 0;
+        }
+    }
+    &--card{
+        margin-bottom: 10px;
+        @include mediaMin(768px){
+            margin-bottom: 20px;
+        }
+    }
+    @include mediaMin(960px) {
+        &--card-desktop{
+            margin-bottom: $space;
+            
+        }
+        &--cardBounded-desktop{
+            
+        }
+    }
+    &--cardBounded{
+        &Simple{
+            margin-bottom: $space/2;
+        }
+        @include mediaMin(480px) {
+            &Simple{
+                margin-bottom: $space;
+            }
+        }
+    }
+    &--iframe{
+        background: $ts-bk-15;
+        @include shadow(7);
+    }
+  
+    @include mediaMin(768px) {
+        margin-#{$left}: 0;
+        margin-#{$right}: 0;
+    }
+
+    &--championshipBox{
+        margin-bottom: 15px;
+        //padding-#{$left}: 65px;
+        //height: 100px;
+        height: auto;
+
+        padding-#{$left}: 0px;
+        @include mediaMin(768px){
+            height: 110px;
+            margin-bottom: 0;
+            //padding-#{$right}:200px;
+            padding-#{$left}: 120px;
+        }
+    }
+    &--cricleView{
+        padding-#{$right}: 0px;
+        @include mediaMin(768px){
+            padding-#{$right}: 200px;
+        }
+    }
+    &--discover{
+        margin: 0;
+        z-index: 1;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+        @include mediaMin(959px){
+            margin-top: 0;
+        }
+    }
+    &--state{
+        margin-bottom: 0;
+    }
+
+
+}

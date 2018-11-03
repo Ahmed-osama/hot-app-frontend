@@ -1,0 +1,26 @@
+//[1] BASE
+	@import 'base/_vars.scss';
+	@import 'base/_mixins.scss';
+	@import 'base/_fonts.scss';
+	@import 'base/_normalize.scss';
+	@import 'base/_layout.scss';
+	
+
+
+
+//[2] Shared
+	@import 'components/_globals.scss';
+	@import 'components/_header.4.scss';
+
+//[3] components
+	@import 'components/_post-view.scss';
+	
+	@import 'components/_listView.scss';
+
+
+//[4] moduls
+	@import 'moduls/_colors.scss';
+	@import 'moduls/_form.scss';
+	@import 'moduls/_buttons.scss';
+	@import 'moduls/_animation.scss';
+	

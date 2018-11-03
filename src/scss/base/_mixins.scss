@@ -1,0 +1,159 @@
+/*
+    1 - main gradient
+    2 - MediaQueries Mixins
+    3 - Colorset
+    4 - bg hover <- bad mixin
+    5 - Group selector
+    6 - init Grid
+    7 - Placeholder
+
+*/
+
+//[1] - Main Gradient
+  %mainGradient{
+    background: $primaryColor ; 
+    background: linear-gradient(to right, darken($primaryColor, 10%) 1%, $primaryColor 100%); 
+  }
+  %mainGradientTxt{
+    @extend %mainGradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  %arrow{
+    width: 1.5*$space;
+    min-width: 1.5*$space;
+    height: 1.5*$space;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $primaryColor;
+    border-radius: 50%;
+    cursor:pointer;
+    .u-icon{
+        width: 0.5*$space;
+        height: 0.5*$space;
+    }
+  }
+
+  @mixin rem($sizeValue){
+    font-size: $sizeValue + px;
+    font-size: ($sizeValue / $fontSize) + rem;
+  }
+
+  @mixin lineHeight($num){
+    line-height: $num*$space;
+  }
+//[2] - Media Mixins
+  @mixin mediaMin($width) {
+    @media only screen and (min-width: $width) {
+      @content;
+    }
+  }
+
+  @mixin mediaMax($width) {
+    @media only screen and (max-width: $width) {
+      @content;
+    }
+  }
+
+  @mixin mediaBoth($width1,$width2) {
+    @media only screen and(min-width:$width1) and (max-width: $width2) {
+      @content;
+    }
+  }
+
+//[3] - color classes mixin 
+  @mixin colorSet($color, $textColor){
+      &_color{
+          color:$color;
+      }
+      &_hover:hover{
+          color:$color;
+      }
+      &_bg, &_bgHover:hover{
+          background: $color;
+          color:$textColor;
+      }
+      &_bg--darker, &_bg:hover{
+          color:$textColor;
+          background:darken( $color,5%);
+      }
+      &_bg, &_bg--darker{
+          svg{
+              fill:$textColor;
+          }
+      }
+  }
+
+//[4] - background hover
+  @mixin btnBg($color, $percent){
+    background:$color;
+    &:hover{
+        background:darken($color, $percent);
+    }
+  }
+//[5] - groupselectors
+  @mixin groupSelectors($num, $scope){
+    $selectors:"";
+    @for $i from 1 through $num {
+        $selectors:'#{$selectors}.col-#{$scope}-#{$i},' ;
+    }
+    #{$selectors}{
+      @content;
+    }
+  }
+
+//[6] - init Grid
+  @mixin initGrid($width, $pull, $push, $offset){
+    @for $i from 12 through 1 {
+      .col-#{$width}-#{$i}{
+        flex-basis:($i/12)*100%;
+        max-width: ($i/12)*100%;
+      }
+      
+      @if($pull){
+        .col-#{$width}-pull-#{$i} {
+          #{$right}:($i/12)*100%;
+        }
+      }
+      @if($push){
+        .col-#{$width}-push-#{$i} {
+          #{$left}: ($i/12)*100%;
+        }
+      }
+      @if($offset){
+        .col-#{$width}-offset-#{$i}{
+          margin-#{$left}: ($i/12)*100%;
+        }
+      }
+    }
+  }
+//[7] - shadow
+  @mixin shadow($num){
+    box-shadow:0px $num*2px   ((10*$num)-($num*2)-2)*1px -1*($num*1.1)*1px rgba(0,0,0,(0.1 +( $num*0.01)));
+  }
+
+//[8] - placeholder
+  @mixin placeholder($color){
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: $color;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: $color;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: $color;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: $color;
+    }
+  }
+
+//[9] - absolute center
+  @mixin absoluteCenter(){
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin:auto;
+  }

@@ -1,0 +1,175 @@
+.btnHolder{
+    &--tac{
+        text-align: center;
+    }
+    .btn + .btn{
+        margin-#{$left}: $space;
+    }
+    .btn--sm + .btn--sm{
+        margin-#{$left}: 10px;
+    }
+}
+.btn{
+    @include shadow(1);
+    @include rem(16);
+    border: none;
+    cursor:pointer;
+    display: inline-flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    height: 40px;
+    padding:0 15px;
+    text-align: center;
+    text-decoration:none;
+    transition:0.2s;
+    border-radius:2px;
+    @include mediaMin(1024px){
+        height: 2*$space;
+    }
+    &:hover{
+        @include shadow(3);
+    }
+    &:active{
+        @include shadow(2);
+    }
+    .u-icon, svg{
+        width:15px;
+        height:15px;
+        vertical-align: middle;
+        display: inline-block;
+        & + span {
+            margin-#{$left}:$space/3;
+        }
+        &--lg{
+            width:20px;
+            height:20px;
+        }
+        &--sm{
+            width: 10px;
+        }
+    }
+    .u-icon + span,
+    span + .u-icon,
+    span + span{
+        margin-#{$left}:$space/3;
+    }
+
+    &:hover{
+        @include shadow(3);
+    }
+    &:active{
+        @include shadow(2);
+    }
+  
+    &--round{
+        border-radius: 20px;
+        &.btn--sm{
+            border-radius: 15px;
+        }
+        &.btn--xs{
+            border-radius: 10px;
+        }
+        &.btn--thick{
+            border-radius: 22.5px;
+        }
+        &.btn--cta{
+            border-radius: 25px;
+        }
+    }
+
+    &--square{
+        height: 40px;
+        width: 40px;
+        padding:0;
+        &.btn--sm{
+            width:30px;
+            height:30px;
+        }
+        &.btn--xs{
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &--thick{
+        height: 45px;
+    }
+
+    &--cta{
+       @include rem(15);
+        font-weight:500;
+        padding:0 $space;
+        position: relative;
+        text-transform: uppercase;
+        height: 50px;
+    }
+    &--sm{
+        @include rem(12);
+        height:30px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+    &--xs{
+        @include rem(11);
+        height: 20px;
+        padding-left:5px;
+        padding-right:5px;
+    }
+    &--primary{
+        color: $wh;
+        @include btnBg($primaryColor,10%);
+        &:hover{
+            color:$wh;
+        }
+    }
+    &--accent{
+        color: $wh;
+        @include btnBg($accentColor,10%);
+        &:hover{
+            color:$wh;
+        }
+    }
+    &--loading{
+        > * {
+            display: none;
+        }
+        font-size: 0;
+        position: relative;
+        &:after{
+            content:"";
+            position: absolute;
+            @include absoluteCenter();
+            width: 20px;
+            height: 20px;
+            background-color: $wh;
+            animation-name: pulse;
+            animation-iteration-count: infinite;
+            animation-duration: 0.5s;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+    }
+    &--block{
+        flex-basis:100%;
+        min-width:100%;
+    }
+    &--left{
+        float:$left;
+    }
+    &--right{
+        float:$right;
+    }
+    &--mb{
+        margin-bottom: $space;
+    }
+    &--nopadding{
+        padding: 0;
+    }
+    &--disappear{
+       display: none;
+    }
+    &--more{
+        font-weight: 500;
+        @include rem(13);
+    }
+}

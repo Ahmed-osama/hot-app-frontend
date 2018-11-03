@@ -1,0 +1,48 @@
+@if( $direction == 'rtl' ){
+    @font-face {
+        font-family: 'brushez';
+        src: url(assets/fonts/brushez/brushez.ttf);
+        font-weight:400;
+    }
+
+    @font-face {
+        font-family: 'nassim';
+        src: url('assets/fonts/nassim/nassim.ttf');
+    }
+ 
+}@else{
+    
+    @font-face {
+        font-family: 'roboto';
+        src: url(assets/fonts/Roboto/Roboto-Light.ttf);
+        font-weight:300;
+    }    
+    @font-face {
+        font-family: 'roboto';
+        src: url(assets/fonts/Roboto/Roboto-Regular.ttf);
+        font-weight:400;
+    }   
+    @font-face {
+        font-family: 'roboto';
+        src: url(assets/fonts/Roboto/Roboto-Medium.ttf);
+        font-weight:500;
+    }
+}
+
+body{
+    font-size:1rem;
+    font-family:$bodyFont;
+    line-height:1.5em;
+    font-weight: 400;
+
+}
+@each $num in 1,2,3,4,5,6{
+    h#{$num}{
+        font-family: $titleFont;        
+        font-weight: 300;
+        -webkit-margin-before: 0px;
+        -webkit-margin-after: 0px;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+    }
+}

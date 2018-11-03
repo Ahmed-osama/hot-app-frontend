@@ -1,0 +1,53 @@
+//slide fade
+
+
+.slide-fade-enter, .slide-fade-leave-to{
+    opacity: 0;
+  }
+  .slide-fade-enter-active{
+      opacity: 0.5;
+      transform:translateY(30px);
+  }
+  .slide-fade-leave-active {
+    position: absolute;
+    opacity: 0;
+    transform:translateY(-100%) scale(0);
+  }
+
+// fade and expand
+  .expand-fade-enter-active {
+    transition: all .1s ease;
+  }
+  .expand-fade-leave-active {
+    transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .expand-fade-enter, .expand-fade-leave-to{
+    transform: translateY(-20px) scale(0.9);
+    opacity: 0;
+  }
+
+
+//fade
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .3s ease;
+  }
+  .fade-enter, .fade-leave-to
+  /* .component-fade-leave-active for <2.1.8 */ {
+    opacity: 0;
+  }
+
+
+  .list-complete-item {
+    transition: all 1s;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .list-complete-enter, .list-complete-leave-to{
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .list-complete-leave-active {
+    position: absolute;
+  }
+
+  

@@ -8,3 +8,4 @@ export const amenities = [
   "spa"
 ];
 export const price_category = ["low", "medium", "high"];
+export const API_URL = `http://localhost:3000/`;

@@ -25,20 +25,16 @@ C/O https://placeholder.com/" :alt="hotel.name" />
       </div>
       <hr>
 
-      <div v-if="showLogin">
-          <input type="text" placeholder="first name" v-model="user.firstName">
-          <input type="text" placeholder="last name" v-model="user.lastName">
-          <button @click="loginAndBook">login</button>
-      </div>
 
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import confirmationFormatter from "../modules/confirmationFormatter";
 import { setToLocalCollection } from "../modules/utils";
+import { mapActions, mapGetters, mapState } from "vuex";
+import { Axios } from "@/modules/axios";
 
 export default {
   name: "hotel-details",
@@ -47,71 +43,61 @@ export default {
       hotel: null,
       rooms: [],
       showLogin: false,
-      user: null,
+
       cacheConfirmation: null
     };
   },
   methods: {
     loadRooms() {
-      axios
-        .get(
-          `http://localhost:3000/rooms/?hotelId=${this.$route.params.hotelId}`
-        )
-        .then(res => {
-          this.rooms.push(...res.data);
-        });
+      return Axios.get(`rooms/?hotelId=${this.$route.params.hotelId}`);
+    },
+    loadHotel() {
+      return Axios.get(`hotels/${this.$route.params.hotelId}`);
     },
     bookRoom(room) {
       let confirmation = confirmationFormatter(this.hotel, room);
       this.cachedConfirmation = confirmation;
-      let user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
+
+      if (!this.user) {
         this.showlogin();
         return;
       }
-      confirmation.guest = `${user.firstName} ${user.lastName}`;
-      axios
-        .post(`http://localhost:3000/confirmations/`, confirmation)
-        .then(() => {
-          this.$router.push({
-            name: "confirmation",
-            params: {
-              confirmationId: confirmation.id
-            }
-          });
-
-          setToLocalCollection({
-            collection: "confirmations",
-            key: confirmation.id,
-            payload: confirmation
-          });
+      confirmation.guest = `${this.user.firstName} ${this.user.lastName}`;
+      Axios.post(`confirmations/`, confirmation).then(() => {
+        setToLocalCollection({
+          collection: "confirmations",
+          key: confirmation.id,
+          payload: confirmation
         });
-    },
 
+        this.$router.push({
+          name: "confirmation",
+          params: {
+            confirmationId: confirmation.id
+          }
+        });
+      });
+    },
     showlogin() {
       this.showLogin = true;
-      this.user = {
-        firstName: "",
-        firstLast: ""
-      };
     },
-
     loginAndBook() {
-      if (!this.user.firstName || !this.user.lastName) return;
-      setToLocalCollection({
-        collection: "user",
-        payload: this.user
-      });
-      if (cacheConfirmation) this.bookRoom(this.cachedConfirmation);
-    }
+      this.logUserin(this.user);
+      if (this.cachedConfirmation) this.bookRoom(this.cachedConfirmation);
+    },
+    ...mapActions(["logUserin"])
+  },
+  computed: {
+    ...mapState(["user"])
   },
   mounted() {
-    axios
-      .get(`http://localhost:3000/hotels/${this.$route.params.hotelId}`)
-      .then(res => {
-        this.hotel = res.data;
+    let self = this;
+    Axios.all([this.loadHotel(), this.loadRooms()]).then(
+      Axios.spread(function(hotel, rooms) {
+        self.hotel = hotel.data;
+        self.rooms.push(...rooms.data);
       })
-      .then(() => this.loadRooms());
+    );
   }
 };
 </script>

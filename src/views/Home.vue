@@ -3,7 +3,7 @@
   <div>
   
     <p> Should provide an intuitive way to present more information about a hotel once some form of interaction takes place</p>
-    <p> A visitor may be able to apply certain filters to restrict the list of hotels according to his likings in terms of distance_to_venue, rating, price_category and individual amenities</p>
+   
     <div class="container">
       <hotels-filter v-if="showFilters" class="container__filter" />
       <div class="container__hotels">
@@ -14,7 +14,7 @@
               {{hotel.name}}</router-link>
           </h1>
           <h2>distance to venue : {{hotel.distance_to_venue}}</h2>
-          <p>rating : <strong>{{hotel.rating.toFixed(1)}}</strong></p>
+          <p v-if="hotel.rating">rating : <strong>{{hotel.rating.toFixed(1)}}</strong></p>
           <p>price category : <strong>{{hotel.price_category}}</strong></p>
           <h4>amenities :
             <ul>
@@ -30,7 +30,7 @@
 
 <script>
 // @ is an alias to /src
-import axios from "axios";
+
 import { mapState, mapGetters, mapActions } from "vuex";
 import Filters from "@/components/Filters.vue";
 

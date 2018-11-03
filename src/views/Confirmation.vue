@@ -16,7 +16,7 @@
 <script>
 // @ is an alias to /src
 
-import axios from "axios";
+import { Axios } from "@/modules/axios";
 
 export default {
   name: "home",
@@ -31,15 +31,11 @@ export default {
       if (confirmations[this.$route.params.confirmationId]) {
         this.confirmation = confirmations[this.$route.params.confirmationId];
       } else {
-        axios
-          .get(
-            `http://localhost:3000/confirmations/${
-              this.$route.params.confirmationId
-            }`
-          )
-          .then(res => {
+        Axios.get(`confirmations/${this.$route.params.confirmationId}`).then(
+          res => {
             this.confirmation = res.data;
-          }).cat;
+          }
+        ).cat;
       }
     }
   },

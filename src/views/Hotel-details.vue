@@ -23,6 +23,13 @@ C/O https://placeholder.com/" :alt="hotel.name" />
             </li>
           </ul>
       </div>
+      <hr>
+
+      <div v-if="showLogin">
+          <input type="text" placeholder="first name" v-model="user.firstName">
+          <input type="text" placeholder="last name" v-model="user.lastName">
+          <button @click="loginAndBook">login</button>
+      </div>
 
     </div>
   </div>
@@ -30,13 +37,18 @@ C/O https://placeholder.com/" :alt="hotel.name" />
 
 <script>
 import axios from "axios";
-import uuid from "uuid/v1";
+import confirmationFormatter from "../modules/confirmationFormatter";
+import { setToLocalCollection } from "../modules/utils";
+
 export default {
   name: "hotel-details",
   data() {
     return {
       hotel: null,
-      rooms: []
+      rooms: [],
+      showLogin: false,
+      user: null,
+      cacheConfirmation: null
     };
   },
   methods: {
@@ -50,14 +62,14 @@ export default {
         });
     },
     bookRoom(room) {
-      let confirmation = {
-        id: uuid(),
-        hotelId: this.hotel.id,
-        roomId: room.id,
-        hotel: this.hotel,
-        room
-      };
-
+      let confirmation = confirmationFormatter(this.hotel, room);
+      this.cachedConfirmation = confirmation;
+      let user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        this.showlogin();
+        return;
+      }
+      confirmation.guest = `${user.firstName} ${user.lastName}`;
       axios
         .post(`http://localhost:3000/confirmations/`, confirmation)
         .then(() => {
@@ -67,14 +79,30 @@ export default {
               confirmationId: confirmation.id
             }
           });
-          let confirmationHistory =
-            JSON.parse(localStorage.getItem("confirmation")) || {};
-          confirmationHistory[confirmation.id] = confirmation;
-          localStorage.setItem(
-            "confirmation",
-            JSON.stringify(confirmationHistory)
-          );
+
+          setToLocalCollection({
+            collection: "confirmations",
+            key: confirmation.id,
+            payload: confirmation
+          });
         });
+    },
+
+    showlogin() {
+      this.showLogin = true;
+      this.user = {
+        firstName: "",
+        firstLast: ""
+      };
+    },
+
+    loginAndBook() {
+      if (!this.user.firstName || !this.user.lastName) return;
+      setToLocalCollection({
+        collection: "user",
+        payload: this.user
+      });
+      if (cacheConfirmation) this.bookRoom(this.cachedConfirmation);
     }
   },
   mounted() {

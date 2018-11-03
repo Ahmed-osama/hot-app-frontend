@@ -1,20 +1,15 @@
 
 <template>
   <div class="home">
-  
-    <p>Should present all necessary hotel and room information from the item
-       you previously selected. In addition a unique booking number and your
-        account's first- and lastname should be provided</p>
-
-    <p>Make sure that the latest booking is always available to see on this 
-      page and the url can be bookmarked. Even if the API is not available you
-       should be able to see all the available data without the need to perform
-        any requests</p>
-
-        <div v-if="confirmation">
-          <h1>confirmation for {{confirmation.room.name}} @ {{confirmation.hotel.name}}</h1>
-          <p>your confirmation id : {{confirmation.id}}</p>
-        </div>
+    <div v-if="confirmation">
+      <h1>welcome {{confirmation.guest}}</h1>
+      <h2>confirmation for {{confirmation.room.name}} @ {{confirmation.hotel.name}}</h2>
+      <p>your confirmation id : {{confirmation.id}}</p>
+      <p>Hotel rating : {{confirmation.hotel.rating}}</p>
+      <p>Hotel aminites : <span v-for="aminity in confirmation.hotel.amenities" :key="aminity">{{aminity}}, </span></p>
+      <hr>
+      <h2>{{confirmation.room.price_in_usd+"$"}} total for 2 nights and {{confirmation.room.max_occupancy}} Persons</h2>
+    </div>
   </div>
 </template>
 
@@ -32,7 +27,7 @@ export default {
   },
   methods: {
     loadConfirmation() {
-      let confirmations = JSON.parse(localStorage.getItem("confirmation"));
+      let confirmations = JSON.parse(localStorage.getItem("confirmations"));
       if (confirmations[this.$route.params.confirmationId]) {
         this.confirmation = confirmations[this.$route.params.confirmationId];
       } else {
@@ -43,7 +38,6 @@ export default {
             }`
           )
           .then(res => {
-            console.log(res);
             this.confirmation = res.data;
           }).cat;
       }

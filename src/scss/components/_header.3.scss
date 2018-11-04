@@ -87,12 +87,13 @@ body {
         }
     // LOGO
         &__logo {
-            display: block;
+            display: flex;
             width: 80px;
             height: 20px;
             margin: auto;
             margin-top: $space/2;
-
+            align-items: center;
+            justify-content: center;
             background-size: 100% 100%;
             z-index: 2;
             text-align: center; 

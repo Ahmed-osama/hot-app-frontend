@@ -10,11 +10,11 @@ import class from '@vue/cli-service';
       <span>this is you booking confirmation for</span> <strong class="blue_color">{{confirmation.room.name}} </strong> <span>in</span>
       <strong class="blue_color">{{confirmation.hotel.name}}</strong> hotel
     </p>
-    <p class="u-row">
-      <strong>
+    <p class="u-row row">
+      <strong class="col-sm-6">
             your confirmation id : 
           </strong>
-      <pre class=" gry_border u-pd-10">{{confirmation.id}}</pre>
+      <pre class="col-sm-6 gry_border u-pd-10">{{confirmation.id}}</pre>
     </p>
     <p class="u-row">
       <strong>

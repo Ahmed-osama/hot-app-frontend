@@ -1,7 +1,8 @@
 
 <template>
-  <div class="flex">
-    <div v-if="hotels.length > 0" class="col-md-4 u-page-height-scroll">
+  <div class="flex row row--padding">
+    
+    <div v-if="hotels.length > 0" class="col-md-4  col-xs-12 u-page-height-scroll">
       <div class="heading heading--pt">
         <h3 class="heading__title ">all hotels</h3>
       </div>
@@ -18,12 +19,19 @@
       </div>
   
     </div>
-    <div class="col-md-8 u-page-height-scroll section--wh">
+    <div class="col-md-8  col-xs-12 u-page-height-scroll section--wh">
   
       <div v-if="newHotel" class="col-md-8">
+        
         <div class="heading heading--pt  heading--borderbottom">
           <h3 class="heading__title green_color">add hotel</h3>
         </div>
+        <p class="msg msg--note">
+          admin panel have the best exprince on desctop and large screens
+        </p>
+        <p class="msg msg--error">
+          plz make sure you fill all the inputs correctlly as form validation in not active yet !
+        </p>
         <input type="text" v-model="newHotel.name" placeholder="Hotel name">
         <div class="heading heading--pt heading--borderTop">
           <h4 class="heading__title heading__title--sm">add hotel amenities</h4>

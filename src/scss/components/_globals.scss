@@ -94,11 +94,14 @@
         padding: 10px;
     }
     .u-page-height-scroll{
-        height:calc(100vh - 80px);
-        overflow: hidden;
-        overflow-y: scroll;
-        & + & {
-            border-#{$left}:1px solid $dviderColor; 
+        @include mediaMin(768px){
+
+            height:calc(100vh - 80px);
+            overflow: hidden;
+            overflow-y: scroll;
+            & + & {
+                border-#{$left}:1px solid $dviderColor; 
+            }
         }
     }
 //[1] - social items
@@ -575,6 +578,7 @@
         border-#{$left}:5px solid rgba(0,0,0,0.2);
         @include rem(16);
         line-height: 2em;
+        margin-bottom: 15px;
 
         &--note{
             background:#fff9ee;

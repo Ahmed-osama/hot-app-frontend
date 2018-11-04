@@ -171,6 +171,10 @@
     flex-wrap: wrap;
     margin-#{$left}: -1*$grid-space ;
     margin-#{$right}: -1*$grid-space ;
+    &--padding{
+        margin-#{$left}: 0 ;
+        margin-#{$right}: 0 ;
+    }
     
   }
  

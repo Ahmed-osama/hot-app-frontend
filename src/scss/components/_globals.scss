@@ -90,7 +90,9 @@
     .u-wrap{
         flex-wrap: wrap
     }
-
+    .u-pd-10{
+        padding: 10px;
+    }
 //[1] - social items
     .facebook{
         @include btnBg($facebook,10%)

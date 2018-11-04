@@ -1,16 +1,52 @@
+import class from '@vue/cli-service';
 
 <template>
-  <div class="home">
-    <div v-if="confirmation">
-      <h1>welcome {{confirmation.guest}}</h1>
-      <h2>confirmation for {{confirmation.room.name}} @ {{confirmation.hotel.name}}</h2>
-      <p>your confirmation id : {{confirmation.id}}</p>
-      <p>Hotel rating : {{confirmation.hotel.rating}}</p>
-      <p>Hotel aminites : <span v-for="aminity in confirmation.hotel.amenities" :key="aminity">{{aminity}}, </span></p>
-      <hr>
-      <h2>{{confirmation.room.price_in_usd+"$"}} total for 2 nights and {{confirmation.room.max_occupancy}} Persons</h2>
-    </div>
-  </div>
+  <section v-if="confirmation" class="section section--wh section--mb section--fp">
+  
+    <h3 class="section__mainTitle">welcome <strong>{{confirmation.guest}}</strong></h3>
+  
+    <p class="u-row u-wrap">
+      <span>this is you booking confirmation for</span> <strong class="blue_color">{{confirmation.room.name}} </strong> <span>in</span>
+      <strong class="blue_color">{{confirmation.hotel.name}}</strong> hotel
+    </p>
+    <p class="u-row">
+      <strong>
+            your confirmation id : 
+          </strong>
+      <pre class=" gry_border u-pd-10">{{confirmation.id}}</pre>
+    </p>
+    <p class="u-row">
+      <strong>
+            Hotel rating : 
+          </strong>
+      <span class="btn btn--fwb btn--sm liteGry_bg">{{confirmation.hotel.rating}}</span>
+    </p>
+  
+    <p class="u-row">
+      <strong>
+            Hotel aminites : 
+          </strong>
+      <span class="btn btn--sm liteGry_border" v-for="amn in confirmation.hotel.amenities" :key="amn">
+  <img class="u-icon post-view__liIcon" :src="require(`../assets/img/icons/${amn}.svg`)"/>
+               
+                {{amn}}
+              </span>
+    </p>
+  
+   <p class="u-row">
+      <strong class="green_color">
+            {{confirmation.room.price_in_usd+"$"}}
+          </strong>
+          <span>
+            total for <strong>2</strong> nights and
+          </span>
+            <strong>{{confirmation.room.max_occupancy}}</strong> Persons
+ </p>
+ 
+   <router-link :to="`/hotel-detail/${confirmation.hotelId}`" class="btn btn--block btn--nomb green_bg">check hotel page</router-link>
+
+   
+  </section>
 </template>
 
 <script>

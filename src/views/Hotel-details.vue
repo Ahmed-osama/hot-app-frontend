@@ -1,7 +1,7 @@
 
 <template>
   <div v-if="hotel">
-    <carousel mouseDrag  per-page="1" paginationColor="#fff" loop  paginationActiveColor="#feea3a">
+    <carousel mouseDrag  :per-page="1" paginationColor="#fff" loop  paginationActiveColor="#feea3a">
     <slide :key="img"  v-for="img of hotel.images">
      <img   :src="require(`../assets/img/hotels/${img}.jpg`) " :alt="hotel.name" />
     </slide>
@@ -135,7 +135,7 @@ export default {
   overflow: hidden;
 }
 .VueCarousel-slide {
-  height: 50vh;
+  height: 40vh;
   max-height: 400px;
   min-height: 200px;
   overflow: hidden;

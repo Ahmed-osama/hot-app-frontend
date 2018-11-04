@@ -420,10 +420,20 @@ body {
             &Logout{
                 margin-#{$left}:10px; 
             }
-            .form-row + .form-row{
-            
-                    margin-#{$left}:10px;
+            @include mediaMin(767px) {
+                .form-row + .form-row{
                 
+                        margin-#{$left}:10px;
+                    
+                }
+            }
+            @include mediaMax(768px) {
+                flex-wrap: wrap;
+                padding-top: 10px;
+                align-items: flex-start;
+                .form-row {
+                    margin-bottom: 10px;
+                }
             }
             
         }

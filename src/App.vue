@@ -20,8 +20,16 @@ export default {
   },
   computed: {
     classes() {
-      return { "container container--main": this.$route.path !== "/admin" };
+      return {
+        "container container--main": this.$route.path !== "/admin",
+        "container container--tight": this.$route.path.includes(
+          "/confirmation/"
+        )
+      };
     }
+  },
+  mounted() {
+    console.log(this.$route.path);
   }
 };
 </script>

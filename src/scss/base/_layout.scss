@@ -48,14 +48,25 @@
         &--offWhite{
             background: $offWhite;
         }
+        &--wh{
+            background: $wh;
+        }
         &--gry{
             background: $lightGry;
+        }
+        &--mb{
+            margin-bottom: $space;
         }
         &-nopt{
             padding-top: 0;
         }
         &--nopb{
             padding-bottom: 10px;
+        }
+        &--fp{
+            padding-left:$space !important;
+            padding-right:$space !important;
+            border-radius:0 0 3px;
         }
         &--nop{
            padding: 0;
@@ -78,7 +89,7 @@
 
 
         &__mainTitle{
-            @include lineHeight(1);
+            @include lineHeight(1.7);
             margin-bottom:$space;
             &--center{
                 text-align: center;

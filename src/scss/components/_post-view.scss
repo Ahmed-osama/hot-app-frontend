@@ -153,31 +153,23 @@ transition: 0.2s;
    
     &--horizontal &__img{
         #{$left}: 0;
-        height:80px;
+        height:70px;
         padding: 0;
         position:absolute;
         top: 0;
-        width: 110px;
+        width: 100px;
+        &, img{
 
+            border-top-#{$right}-radius:0;
+            border-bottom-#{$right}-radius:0;
+        }
         @include mediaMin(768px) {
             height:7*$space;
             width: 10*$space;
         }
     }
     
-    &--horizontal-sm &__img{
-        height:70px;
-        width: 100px;
-        img{
-            border-radius: 0;
-        }
-        @if($direction == 'ltr'){
-            border-radius: 3px 0 0 3px;
-        }
-        @else{
-            border-radius: 0 3px 3px 0;
-        }
-    }
+  
     
 //[9] - CAPTION
     &__caption {
@@ -219,7 +211,10 @@ transition: 0.2s;
     &--horizontal &__caption{
         padding-top:$space/2;
         padding-#{$left}: $space/2;
+        flex-shrink: 1px;
         @include mediaMin(768px) {
+            flex-grow: 1;
+            flex-basis: 80%;
             padding: $space 0 0 0;
         }
     }
@@ -242,6 +237,9 @@ transition: 0.2s;
         background: $lightGry;
         padding-left: 10px;
         border-radius: 3px 0 0 3px;
+        @include mediaMin(768px) {
+
+        }
         @if($direction == 'rtl'){
             border-radius: 3px 0 0 3px;
         }
@@ -343,45 +341,88 @@ transition: 0.2s;
                 margin-#{$right}:10px;
             }
         }
+        &Icon{
+            width:15px;
+            height: 15px;
+            margin-#{$right}:5px;
+            -webkit-mask-size: 50% 50%;
+            opacity: 0.5;
+        }
     }
     &--cardBounded:hover &__li--hidden{
         visibility: visible;
         opacity: 1;
     }
-    
-//[12] MODIFIERS
-    &--horizontal{
-        height:3*$space;
-        padding-#{$left}:4.5*$space;
-        margin-bottom: $space/2;
+//[11.5] ACTIONS
 
-        @include mediaMin(375px) {
-            height:3.5*$space;
-            padding-#{$left}: 5*$space;
+    &__actions{
+        flex-basis: 20%;
+        display: flex;
+        padding:0 10px;
+        @include mediaMin(768px) {
+            justify-content: center;
+            max-width: 200px;
+            flex-direction: column;
+            padding:0 20px;
+            min-width: 200px;
+
+        }
+    }
+    &__price{
+        font-weight: 900px;
+        flex-grow: 1;
+        @include mediaMin(768px) {
+            font-size: 22px;
+            flex-grow: initial;
+        }
+       
+    }
+    &__occupancy{
+        margin-bottom: 5px;
+        font-size: 16px;
+        color: $gry;
+        display: none;
+        
+        @include mediaMin(768px) {
+            display: block;
+            
+        }
+
+    }
+    &__cta{
+        justify-self: flex-end;
+        @include mediaMax(767px) {
+            height: 30px !important;
+            padding:0 10px !important;
+            align-self: flex-end;
+            height:30px;
         }
         @include mediaMin(768px) {
+            justify-self: center;
+        }
+    }
+
+//[12] MODIFIERS
+    &--horizontal{
+        height:3.5*$space;
+        padding-#{$left}:5*$space;
+        margin-bottom: $space/2;
+        display: flex;
+        background:$wh;
+        flex-direction: column;
+       
+        @include mediaMin(768px) {
+            flex-direction: row;
             margin-bottom: $space;
             height:7*$space; 
             padding-#{$left}:11*$space;
         }
-        &-sm{
-            height:70px;
-            padding-#{$left}:100px;
-            margin-bottom: 10px;
-            @include mediaMin(768px) {
-                margin-bottom: 15px;
-            }
-        
-        }
+
     }
     
     &--card{
-        margin-bottom: $space;
-        &Simple{
-            margin-bottom: 0;
-        }
-    }
-    &--card{
+     
+   
         margin-bottom: 10px;
         @include mediaMin(768px){
             height: 340px;

@@ -30,3 +30,11 @@ export const getMinMaxOf = (arr, prop) => {
     max: Math.round(Math.max(...nums))
   };
 };
+
+export function labels(val) {
+  return {
+    red_bg: val === "high",
+    yellow_bg: val === "medium",
+    green_bg: val === "low"
+  };
+}

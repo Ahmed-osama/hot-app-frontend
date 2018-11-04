@@ -2,11 +2,9 @@
   <div class="post-view post-view--card post-view--cardBounded ">
     <router-link :to="`/hotel-detail/${hotel.id}`" class="post-view__link" :title="hotel.name"></router-link>
     <div class="post-view__img">
-      <span class="post-view__padge" :class="classes(hotel.price_category)">{{hotel.price_category}} price</span>
+      <span class="post-view__padge" :class="labels(hotel.price_category)">{{hotel.price_category}} price</span>
       <span class="post-view__icon">
-            <svg class="u-icon post-view__icon-inner">
-              <use xlink:href="assets/img/icons.svg#icon-play"></use>
-            </svg>
+           
           </span>
       <img v-bind:src="require(`../assets/img/hotels/${hotel.images[0]}.jpg`) " :alt="hotel.name">
     </div>
@@ -23,7 +21,22 @@
             <span class="darkGry_color">meters to venue</span>
           </li>
           <li class="post-view__li post-view__li--hidden">
-            <span class="btn btn--sm liteGry_border" v-for="amn in hotel.amenities" :key="amn">{{amn}}</span>
+            <span class="btn btn--sm " :class="{
+              'blue_border':filters.amenities.includes(amn),
+              'liteGry_border':!filters.amenities.includes(amn),
+            }" v-for="amn in hotel.amenities" :key="amn">
+               
+                    <!-- <span 
+                    class="btn btn--xs btn--square red_bg" 
+                    :style="`
+                      -webkit-mask: url(${require('../assets/img/icons/'+amn+'.svg')}) no-repeat center;
+                      mask: url(${require('../assets/img/icons/'+amn+'.svg')}) no-repeat center;
+                    `"
+                  ></span> -->
+                <img class="u-icon post-view__liIcon" :src="require(`../assets/img/icons/${amn}.svg`)"/>
+             
+              {{amn}}
+            </span>
           </li>
   
        
@@ -35,6 +48,9 @@
 
 <script>
 import StarRating from "vue-star-rating";
+import { mapState } from "vuex";
+import { labels } from "../modules/utils";
+
 export default {
   name: "hotel-card",
   components: {
@@ -45,19 +61,12 @@ export default {
       type: Object
     }
   },
+
   methods: {
-    classes(val) {
-      return {
-        red_bg: val === "high",
-        yellow_bg: val === "medium",
-        green_bg: val === "low"
-      };
-    }
+    labels
   },
   computed: {
-    totalcost: function(params) {
-      return Math.round(this.hotel.price * 2);
-    }
+    ...mapState(["filters"])
   }
 };
 /* eslint-disable */

@@ -69,6 +69,27 @@
     .u-mr-10{
         margin-#{$right}:10px;
     }
+    .u-mb-10{
+        margin-bottom:10px;
+    }
+    .u-row{
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        & + &{
+
+            border-top: 1px solid $dviderColor;
+        }
+        & > * {
+            margin-#{$right}:10px;
+        }
+        @include mediaMax(768px){
+            padding: 10px 0;
+        }
+    }
+    .u-wrap{
+        flex-wrap: wrap
+    }
 
 //[1] - social items
     .facebook{
@@ -151,232 +172,10 @@
     }
 
 
-//[2] - breadcrumb
-    .breadCrumb{
-        list-style-type: none;
-        display: flex;
-        align-items: center;
-        &__Item{
-            height: $space;
-            display: inline-flex;
-            align-items: middle;
-            font-family:$titleFont;
-            font-style:italic;
-            @include rem(13);
-            line-height: 12px;
-            & + &{
-                &:before{
-            
-                    color:inherit;
-                    color: $midGry;
-                    width: $space;
-                    height:$space;
-                    opacity: 0.5;
-                    line-height:23px;
-                    text-align: center;
-                    @include rem(13);
-                    @if($direction == 'rtl'){
-                        line-height:$space/10*7;
-                        content:"/";
-                    }
-                    @if($direction != 'rtl'){
-                        content:"\\";
-                    }
-                }
-            }
-            &--tc{
-                display: table-cell;
-            }
-        }
-        &--mb{
-            margin-bottom:15px;
-        }
-        &--wh{
-            color:$wh;
-        }
-        &--wh &__Item{
-            &:hover{
-                color:$wh;
-                text-shadow:0 0 2px rgba(255,255,255,0.1);
-            }
-        }
-        &--tc {
-            display: table-cell;
-        }
-    }
-
-    
-
-//[3] - Title
-    .heading{
-        display: flex;
-        flex-direction: row;
-        
-        margin-bottom:$space/2;
-        @include mediaMax(768px){
-            &--break{
-                flex-direction: column;
-            }
-        }
-        &--pt{
-            padding-top: 30px;
-        }
-        &--border{
-            &Top{
-                padding-top: 30px;
-                border-top: 3px solid $dviderColor;
-            }
-            &bottom{
-                padding-bottom: 30px;
-                border-bottom: 3px solid $dviderColor;
-            }
-        }
-        &__title{
-            align-items: center;
-            display: flex;
-            color:$primaryText;
-            text-transform: capitalize;
-            @include rem(21);
-            font-weight: 500;
-            margin-bottom: 0;
-            margin-#{$right}:10px;
-            span{
-                margin:0 10px;
-            }
-            &--sm{
-                @include rem(16);
-            }
-            @include mediaMin(769px){
-                margin-#{$right}:20px;
-            }
-        }
-        &--break &__title{
-            @include mediaMax(768px){
-                margin-bottom: 20px;
-            }
-        }
-
-        &--startWithList &__title{
-            flex-grow: initial;
-            @include mediaMin(769px){
-                margin-#{$right}:40px;
-            }
-        }
-        &__list{
-            flex-grow: 1;
-            text-align:$left;
-            list-style-type: none;
-            vertical-align: middle;
-            display: flex;
-            align-items:center;
-            justify-content :flex-start;
-            margin-top: $space/2;
-            flex-wrap: wrap;
-            @include rem(14);
-            font-weight: 500;
-            @include mediaMax(768px){
-                overflow: hidden;
-                overflow-x: scroll;
-                display: block;
-                white-space: nowrap;
-                margin-left: -15px;
-                margin-right: -15px;
-            }
-            @include mediaMin(769px){
-                justify-content :flex-end;
-                text-align:$left;
-            }
-        }
-        &--startWithList &__list{
-            margin-top: 0;
-            justify-content: flex-start;
-            padding: 0;
-            margin-bottom: 0;
-            @include mediaMin(768px){
-                justify-content :flex-start;
-
-            }
-        }
-        
-        &__listItem{
-            @include rem(14);
-            display: inline-flex;
-            color:$primaryText;
-            padding:0 15px;
-            border-radius:3px;
-            white-space: nowrap;
-            align-items:center;
-            height: 35px;
-            border-radius: 17px;
-
-            &:hover{
-                color:$primaryText;
-            }
-            &--active{
-                background: $primaryColor;
-                &:hover{
-                    background: darken($primaryColor,10%);
-                }
-            }
-        
-        }
-
-        &__more{
-            display: flex;
-            font-family:$titleFont;
-            justify-content: flex-end;
-            flex-grow: 1;
-            @include rem(16);
-        }
-        &__middle{
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            font-weight: 500;
-            @include rem(14);
-            a{
-                display: inline-flex;
-                align-items: center;
-            }
-            .u-icon{
-                width: 20px;
-                height: 20px;
-                margin-#{$right}:10px;
-                fill: currentColor;
-            }
-        }
-
-        @include mediaMin(768px){
-            flex-direction: row;
-            margin-bottom:$space;
-            flex-basis: 100%;
-            &__list{
-                margin-top: 0;
-                text-align:$right;
-            }
-        }
-
-        &--nomb{
-            margin-bottom: 0;
-        }
-    }
 
 
-//[5] - color padge
-    .colorLabel{
-        width: $space;
-        height: $space;
-        display: inline-block;
-        @include shadow(1);
-        border-radius: 2px;
-        &--round{
-            border-radius: $space/2;
-        }
-        & + &{
-            margin-#{$left}:$space/3; 
-        }
-    }
+
+
 //[6] - placeholders
     @keyframes placeHolderShimmer {
         0%{ background-position: -468px 0; }
@@ -588,78 +387,7 @@
         }
     }
 
-//[8] - Dropdown
-    .dropdown{
-        border-radius: 10px;
-        font-family: $titleFont;
-        font-size: 13px;
-        color:$primaryText;
-        display: block;
-        position: relative;
-        transition:0.2s;
-        position: relative;
-        &--mb{
 
-            margin-bottom: 20px;
-        }
-        &__button{
-
-            svg{
-                width: 24px !important;
-                height: 20px !important;
-            }
-        }
-    
-        &__list{
-            padding: 12px 20px;
-            background: $wh;
-            overflow: hidden;
-            min-width: 200px;
-            &--dd{
-                padding:0;
-                border-radius: 3px;
-                box-shadow:0 5px 10px rgba(0,0,0,0.1);
-                z-index: 3;
-                position:absolute;
-                top: calc(100% + 5px );
-                #{$left}:0;
-                width: 100%;
-            }
-            .heading__more &--dd{
-                #{$left}:auto;
-                #{$right}:0;
-            }
-        }
-        &__item{
-            color: $bk;
-            &--opt{
-                padding: 5px 20px;
-                cursor: pointer;
-                & + .dropdown__item--opt {
-                    border-top:1px solid $dviderColor ;
-                }
-                &:hover{
-                    color: $primaryColor;
-                }
-            }
-            a{
-                text-decoration: none;
-                line-height: 30px;
-                display: block;
-                color: $bk;
-                &:hover{
-                    color: $primaryColor;
-                }
-            }
-        }
-    }
-    .is-selected{
-        background: $primaryColor;
-        color:$wh;
-        &:hover{
-        color: $wh;
-        }
-    }
 
 //[9] - _
     .tag{
@@ -674,136 +402,8 @@
         }
     }
 
-//[10] - ads
-    .ad-placement{
-        text-align: center;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        align-self: flex-start;
-        @include mediaBoth(321px, 639px){
-            background: $dviderColor;
-        }
-        &--nopt{
-            padding-top: 0;
-        }
-        &--nopb{
-            padding-bottom: 0;
-        }
-        &--mobile{
-            display: none;
-            //background: yellow;
-            @media all and(max-width:768px){
-                display: block;
-                clear: both;
-            }
-        }
-        &--desktop{
-            display: none;
-            //background: red;
-            @media all and(min-width:769px){
-                display: block;
-            }
-        }
-        &--nop{
-            padding:0;
-        }
 
-        &--mb{
-            margin-bottom: 20px;
-        }
-    }
-    .ad-fixed{
-        transition:0.1s;
-        text-align: center;
-        position: fixed;
-        top: 200px;
-        z-index: 5;
-        min-width: 120px;
-        min-height: 600px;
-        @media all and(max-width:1279px){
-            display: none;
-        }
-
-        &--innerPage{
-            top: 100px;
-            &.active-scroll{
-                top:70px;
-            }
-            @media all and(max-width:1350px){
-                top: 70px;
-            }
-        }
-        &--left{
-            left:0;
-        }
-        &--right{
-            right:0;
-        }
-        @include mediaMin(1500px){
-            top:181px;
-            &.active-scroll{
-                top:70px;
-            }
-        }
-        @include mediaMin(1500px){
-            &--left{
-                left:calc(50% - 585px);
-                transform:translateX(-100%);
-            }
-            &--right{
-                right:calc(50% - 585px);
-                transform:translateX(100%);
-            }
-        }
-    }
-
-//[11] - article
-    article{
-        padding:20px  10px;
-        @include mediaMin(960px){
-            padding:20px  0;
-            padding-#{$left}:40px; 
-        }
-        p{
-            margin-bottom: 20px;
-            @include rem(17);
-            line-height: 2em;
-        }
-        h1,h2,h3,h4,h5,h6{
-            font-weight: 500;
-            margin-bottom: 10px;
-            line-height: 1.5em;
-        }
-        h1 {
-            @include rem(28);
-        }
-        h2 {
-            @include rem(24);
-        }
-        h3{
-            @include rem(22);
-        }
-        h4{
-            @include rem(20);
-        }
-        h5 {
-            @include rem(17);
-        }
-        h6 {
-            @include rem(15);
-        }
-
-        .msg{
-            margin-bottom: 40px;
-            @include mediaMin(960px){
-                margin-#{$left}:-40px; 
-            }
-        }
-    }
-
+   
 //[12] - MSG
     .msg{
         font-weight: 500;

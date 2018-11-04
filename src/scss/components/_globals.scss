@@ -93,6 +93,14 @@
     .u-pd-10{
         padding: 10px;
     }
+    .u-page-height-scroll{
+        height:calc(100vh - 80px);
+        overflow: hidden;
+        overflow-y: scroll;
+        & + & {
+            border-#{$left}:1px solid $dviderColor; 
+        }
+    }
 //[1] - social items
     .facebook{
         @include btnBg($facebook,10%)
@@ -242,7 +250,159 @@
             width:calc(66% - 10px); 
         }
     }
+//[3] - Title
+.heading{
+    display: flex;
+    flex-direction: row;
+    margin-bottom:$space;
+    @include mediaMax(768px){
+        &--break{
+            flex-direction: column;
+        }
+    }
+    &--pt{
+        padding-top:$space !important;
+    }
+    &--border{
+        &Top{
+            padding-top: $space;
+            border-top: 3px solid $dviderColor;
+        }
+        &bottom{
+            padding-bottom: $space;
+            border-bottom: 3px solid $dviderColor;
+        }
+    }
+    &__title{
+        align-items: center;
+        display: flex;
+        color:$primaryText;
+        text-transform: capitalize;
+        @include rem(21);
+        font-weight: 500;
+        margin-bottom: 0;
+        margin-#{$right}:10px;
+        span{
+            margin:0 10px;
+        }
+        &--sm{
+            @include rem(16);
+        }
+        @include mediaMin(769px){
+            margin-#{$right}:20px;
+        }
+    }
+    &--break &__title{
+        @include mediaMax(768px){
+            margin-bottom: 20px;
+        }
+    }
 
+    &--startWithList &__title{
+        flex-grow: initial;
+        @include mediaMin(769px){
+            margin-#{$right}:40px;
+        }
+    }
+    &__list{
+        flex-grow: 1;
+        text-align:$left;
+        list-style-type: none;
+        vertical-align: middle;
+        display: flex;
+        align-items:center;
+        justify-content :flex-start;
+        margin-top: $space/2;
+        flex-wrap: wrap;
+        @include rem(14);
+        font-weight: 500;
+        @include mediaMax(768px){
+            overflow: hidden;
+            overflow-x: scroll;
+            display: block;
+            white-space: nowrap;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        @include mediaMin(769px){
+            justify-content :flex-end;
+            text-align:$left;
+        }
+    }
+    &--startWithList &__list{
+        margin-top: 0;
+        justify-content: flex-start;
+        padding: 0;
+        margin-bottom: 0;
+        @include mediaMin(768px){
+            justify-content :flex-start;
+
+        }
+    }
+    
+    &__listItem{
+        @include rem(14);
+        display: inline-flex;
+        color:$primaryText;
+        padding:0 15px;
+        border-radius:3px;
+        white-space: nowrap;
+        align-items:center;
+        height: 35px;
+        border-radius: 17px;
+
+        &:hover{
+            color:$primaryText;
+        }
+        &--active{
+            background: $primaryColor;
+            &:hover{
+                background: darken($primaryColor,10%);
+            }
+        }
+    
+    }
+
+    &__more{
+        display: flex;
+        font-family:$titleFont;
+        justify-content: flex-end;
+        flex-grow: 1;
+        @include rem(16);
+    }
+    &__middle{
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-weight: 500;
+        @include rem(14);
+        a{
+            display: inline-flex;
+            align-items: center;
+        }
+        .u-icon{
+            width: 20px;
+            height: 20px;
+            margin-#{$right}:10px;
+            fill: currentColor;
+        }
+    }
+
+    @include mediaMin(768px){
+        flex-direction: row;
+        margin-bottom:$space;
+        flex-basis: 100%;
+        &__list{
+            margin-top: 0;
+            text-align:$right;
+        }
+    }
+
+    &--nomb{
+        margin-bottom: 0;
+    }
+}
 //[7] - loading
    %loader{
         &:before, &:after{

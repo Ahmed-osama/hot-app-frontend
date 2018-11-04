@@ -167,6 +167,20 @@ transition: 0.2s;
             height:7*$space;
             width: 10*$space;
         }
+
+    }
+    &--horizontal-sm &__img{
+        height:70px;
+        width: 100px;
+        img{
+            border-radius: 0;
+        }
+        @if($direction == 'ltr'){
+            border-radius: 3px 0 0 3px;
+        }
+        @else{
+            border-radius: 0 3px 3px 0;
+        }
     }
     
   
@@ -234,7 +248,7 @@ transition: 0.2s;
         align-items: flex-start;
         justify-content: center;
         //background: $offWhite;
-        background: $lightGry;
+        background: $wh;
         padding-left: 10px;
         border-radius: 3px 0 0 3px;
         @include mediaMin(768px) {
@@ -416,6 +430,15 @@ transition: 0.2s;
             margin-bottom: $space;
             height:7*$space; 
             padding-#{$left}:11*$space;
+        }
+        &-sm{
+            height:70px;
+            padding-#{$left}:100px;
+            margin-bottom: 10px;
+            @include mediaMin(768px) {
+                margin-bottom: 15px;
+            }
+        
         }
 
     }

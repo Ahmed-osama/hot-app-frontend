@@ -1,45 +1,85 @@
 
 <template>
-  <div class="about">
-    <div v-if="newHotel">
-      <h2>add hotel</h2>
-      <input type="text" v-model="newHotel.name" placeholder="Hotel name"><br>
-      <select multiple v-model="newHotel.amenities"><br>
-              <option v-for="aminity in amenities" :key="aminity" :value="aminity">{{aminity}}</option>
-            </select><br>
-      <ul v-if="newHotel.images.length > 0">
-        <li v-for="(img,i) in newHotel.images" :key="i">
-          {{img}}
-          <button @click="removeImg(i)">X</button>
-        </li>
-      </ul>
-      <input type="text" v-model="newImg">
-      <button @click="addImg()">+</button>
-      <br>
-      <label for="pricelvl">price Category</label>
-      <select v-model="newHotel.price_category">
-              <option v-for="priceCategory in priceCategoreis" :key="priceCategory" :value="priceCategory">{{priceCategory}}</option>
-            </select><br>
-      <label for="">rating</label> <input type="range" v-model.number="newHotel.rating" min="0" max="5">{{newHotel.rating}}<br>
-      <label for="">distance to venue</label> <input type="number" v-model.number="newHotel.distance_to_venue" min="0" max="2000" step="100"><br>
-      <label for="">Description </label> <textarea type="number" v-model="newHotel.description"></textarea><br>
-      <button @click="addHotel">add hotel</button>
+  <div class="flex">
+    <div v-if="hotels.length > 0" class="col-md-4 u-page-height-scroll">
+      <div class="heading heading--pt">
+        <h3 class="heading__title">all hotels</h3>
+      </div>
+      <div v-for="(hotel,index) in hotels" :key="hotel.id" class="post-view post-view--horizontal post-view--horizontal-sm ">
+        <div class="post-view__img">
+          <img :src="require(`../assets/img/hotels/${hotel.images[0]}.jpg`)" />
+        </div>
+        <div class="post-view__caption">
+          <h4 class="post-view__maxTitle">
+            <router-link :to="`/hotel-detail/${hotel.id}`" :title="hotel.name">{{hotel.name}}</router-link>
+          </h4>
+          <button class="btn red_bg btn--xs" @click="deleteHotel(hotel.id, index)">remove</button>
+        </div>
+      </div>
+  
     </div>
+    <div class="col-md-8 u-page-height-scroll section--wh">
+  
+      <div v-if="newHotel" class="col-md-8">
+        <div class="heading heading--pt  heading--borderbottom">
+        <h3 class="heading__title">add hotel</h3>
+      </div>
+        <input type="text" v-model="newHotel.name" placeholder="Hotel name">
+        <div class="heading heading--pt heading--borderbottom">
+          <h4 class="heading__title heading__title--sm">add hotel amenities</h4>
+        </div>
+        <ul class="row">
+          <li v-for="ameniti of amenities" :key="ameniti" class="input-checkbox_-row col-sm-4">
+        
+            <span class="input-checkbox">
+              <input  class="input-checkbox__input"  type="checkbox" :id="'amenities'+ameniti" :value="ameniti" v-model="newHotel.amenities">
+              <span class="input-checkbox__preview"></span>
+            </span>
+            <label class="input-checkbox_-_label" :for="'amenities'+ameniti">{{ameniti}}</label>
+          </li>
+        </ul>
 
-    <div v-if="hotels.length > 0 && newRoom">
-      <h2>Add Room</h2>
-      <input type="text" v-model="newRoom.name"><br>
-      <select v-model="newRoom.hotelId">
-        <option v-for="hotel in hotels" :value="hotel.id" :key="hotel.id">{{hotel.name}}</option>
-      </select><br>
-      <textarea v-model="newRoom.description"></textarea><br>
-      <input type="number" min="0" max="4" step="1" v-model.number="newRoom.max_occupancy"><br>
-      <input type="number" min="0" max="2000" step="100" v-model.number="newRoom.price_in_usd"><br>
-       <button @click="addRoom">add hotel</button>
+
+        <div class="heading heading--pt heading--borderbottom">
+          <h4 class="heading__title heading__title--sm">add hotel images</h4>
+        </div>
+
+        <div v-if="newHotel.images.length > 0" class="u-row u-row--wrap">
+          <span class="btn liteGry_bg" v-for="(img,i) in newHotel.images" :key="i">
+            <span class="btn--block">{{img}}</span>
+            <button @click="removeImg(i)" class="btn btn--xs red_bg btn--square btn--round">X</button>
+          </span>
+        </div>
+        <div class="form-row">
+
+        <input type="text" v-model="newImg">
+        <button class="btn btn--mb green_bg" @click="addImg()">+</button>
+        </div>
+        <br>
+        <label for="pricelvl">price Category</label>
+        <select v-model="newHotel.price_category">
+                  <option v-for="priceCategory in priceCategoreis" :key="priceCategory" :value="priceCategory">{{priceCategory}}</option>
+                </select><br>
+        <label for="">rating</label> <input type="range" v-model.number="newHotel.rating" min="0" max="5">{{newHotel.rating}}<br>
+        <label for="">distance to venue</label> <input type="number" v-model.number="newHotel.distance_to_venue" min="0" max="2000" step="100"><br>
+        <label for="">Description </label> <textarea type="number" v-model="newHotel.description"></textarea><br>
+        <button @click="addHotel">add hotel</button>
+      </div>
+  
+      <div v-if="hotels.length > 0 && newRoom">
+        <h2>Add Room</h2>
+        <input type="text" v-model="newRoom.name"><br>
+        <select v-model="newRoom.hotelId">
+            <option v-for="hotel in hotels" :value="hotel.id" :key="hotel.id">{{hotel.name}}</option>
+          </select><br>
+        <textarea v-model="newRoom.description"></textarea><br>
+        <input type="number" min="0" max="4" step="1" v-model.number="newRoom.max_occupancy"><br>
+        <input type="number" min="0" max="2000" step="100" v-model.number="newRoom.price_in_usd"><br>
+        <button @click="addRoom">add hotel</button>
+      </div>
     </div>
-    <ul  v-if="hotels.length > 0">
-      <li v-for="(hotel,index) in hotels" :key="hotel.id">{{hotel.name}} <button @click="deleteHotel(hotel.id, index)">X</button></li>
-    </ul>
+  
+  
   </div>
 </template>
 
@@ -48,7 +88,6 @@ import uuid from "uuid/v1";
 import { amenities, price_category } from "../modules/constants";
 import { Axios } from "@/modules/axios";
 import { mapState, mapActions } from "vuex";
-
 export default {
   data() {
     return {

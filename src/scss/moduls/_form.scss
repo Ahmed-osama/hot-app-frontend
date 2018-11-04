@@ -43,7 +43,7 @@
         width:100%;
         max-width:100%;
         font-family: $bodyFont;
-        margin-bottom: $space/2;
+        margin-bottom: $space;
         @include placeholder($midGry);
         @include rem(16);
         border-radius:0;

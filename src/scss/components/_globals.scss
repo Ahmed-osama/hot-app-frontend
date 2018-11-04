@@ -104,6 +104,10 @@
             }
         }
     }
+    .u-ovfx{
+        overflow: hidden;
+        overflow-x: scroll
+    }
 //[1] - social items
     .facebook{
         @include btnBg($facebook,10%)

@@ -33,7 +33,7 @@
       <room-card @bookRoom="bookRoom(room)" v-for="room of visibleRooms" :key="room.id" :room="room" />
     </transition-group> 
     <div class="btnHolder btnHolder--tac">
-      <a v-if="maxVisibleRooms!=rooms.length" class="btn btn--mb blue_bg" @click.prevent="showAllRooms"> show {{rooms.length -2}} more rooms</a>
+      <a v-if="maxVisibleRooms!=rooms.length && rooms.length>2" class="btn btn--mb blue_bg"  @click.prevent="showAllRooms"> show {{rooms.length -2}} more rooms</a>
     </div>
   </div>
 </template>

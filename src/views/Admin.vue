@@ -3,7 +3,7 @@
   <div class="flex">
     <div v-if="hotels.length > 0" class="col-md-4 u-page-height-scroll">
       <div class="heading heading--pt">
-        <h3 class="heading__title">all hotels</h3>
+        <h3 class="heading__title ">all hotels</h3>
       </div>
       <div v-for="(hotel,index) in hotels" :key="hotel.id" class="post-view post-view--horizontal post-view--horizontal-sm ">
         <div class="post-view__img">
@@ -22,60 +22,100 @@
   
       <div v-if="newHotel" class="col-md-8">
         <div class="heading heading--pt  heading--borderbottom">
-        <h3 class="heading__title">add hotel</h3>
-      </div>
+          <h3 class="heading__title green_color">add hotel</h3>
+        </div>
         <input type="text" v-model="newHotel.name" placeholder="Hotel name">
-        <div class="heading heading--pt heading--borderbottom">
+        <div class="heading heading--pt heading--borderTop">
           <h4 class="heading__title heading__title--sm">add hotel amenities</h4>
         </div>
         <ul class="row">
           <li v-for="ameniti of amenities" :key="ameniti" class="input-checkbox_-row col-sm-4">
-        
+  
             <span class="input-checkbox">
-              <input  class="input-checkbox__input"  type="checkbox" :id="'amenities'+ameniti" :value="ameniti" v-model="newHotel.amenities">
-              <span class="input-checkbox__preview"></span>
+                <input  class="input-checkbox__input"  type="checkbox" :id="'amenities'+ameniti" :value="ameniti" v-model="newHotel.amenities">
+                <span class="input-checkbox__preview"></span>
             </span>
             <label class="input-checkbox_-_label" :for="'amenities'+ameniti">{{ameniti}}</label>
           </li>
         </ul>
-
-
-        <div class="heading heading--pt heading--borderbottom">
+  
+  
+        <div class="heading heading--pt heading--borderTop">
           <h4 class="heading__title heading__title--sm">add hotel images</h4>
         </div>
-
+  
         <div v-if="newHotel.images.length > 0" class="u-row u-row--wrap">
-          <span class="btn liteGry_bg" v-for="(img,i) in newHotel.images" :key="i">
-            <span class="btn--block">{{img}}</span>
-            <button @click="removeImg(i)" class="btn btn--xs red_bg btn--square btn--round">X</button>
+          <span class="btn liteGry_bg btn--sm btn--round" v-for="(img,i) in newHotel.images" :key="i">
+              <span class="btn--block">image - {{img}}</span>
+          <button @click="removeImg(i)" class="btn btn--xs red_bg btn--square btn--round">X</button>
           </span>
         </div>
         <div class="form-row">
-
-        <input type="text" v-model="newImg">
-        <button class="btn btn--mb green_bg" @click="addImg()">+</button>
+  
+          <input type="text" v-model="newImg">
+          <button class="btn btn--mb green_bg" @click="addImg()">+</button>
         </div>
-        <br>
-        <label for="pricelvl">price Category</label>
-        <select v-model="newHotel.price_category">
-                  <option v-for="priceCategory in priceCategoreis" :key="priceCategory" :value="priceCategory">{{priceCategory}}</option>
-                </select><br>
-        <label for="">rating</label> <input type="range" v-model.number="newHotel.rating" min="0" max="5">{{newHotel.rating}}<br>
-        <label for="">distance to venue</label> <input type="number" v-model.number="newHotel.distance_to_venue" min="0" max="2000" step="100"><br>
-        <label for="">Description </label> <textarea type="number" v-model="newHotel.description"></textarea><br>
-        <button @click="addHotel">add hotel</button>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="heading heading--pt heading--borderTop">
+              <h4 class="heading__title heading__title--sm">select hotel price category</h4>
+            </div>
+            <select v-model="newHotel.price_category">
+            <option v-for="(priceCategory,index) in priceCategoreis" :selected="index === 1" :key="priceCategory" :value="priceCategory">{{priceCategory}}</option>
+          </select>
+          </div>
+          <div class="col-sm-6">
+            <div class="heading heading--pt heading--borderTop">
+              <h4 class="heading__title heading__title--sm">set hotel rating</h4>
+            </div>
+            <input type="range" v-model.number="newHotel.rating" min="0" max="5">{{newHotel.rating}}
+  
+          </div>
+        </div>
+  
+  
+  
+        <div class="heading heading--pt heading--borderTop">
+          <h4 class="heading__title heading__title--sm">set hotel distance to venue</h4>
+        </div>
+        <input type="number" v-model.number="newHotel.distance_to_venue" min="0" max="2000" step="100">
+  
+        <div class="heading heading--pt heading--borderTop">
+          <h4 class="heading__title heading__title--sm">fill hotel Description</h4>
+        </div>
+        <textarea type="number" v-model="newHotel.description"></textarea><br>
+        <button class="btn btn--block green_bg btn--mb" @click="addHotel">add hotel</button>
       </div>
   
-      <div v-if="hotels.length > 0 && newRoom">
-        <h2>Add Room</h2>
-        <input type="text" v-model="newRoom.name"><br>
-        <select v-model="newRoom.hotelId">
-            <option v-for="hotel in hotels" :value="hotel.id" :key="hotel.id">{{hotel.name}}</option>
-          </select><br>
-        <textarea v-model="newRoom.description"></textarea><br>
-        <input type="number" min="0" max="4" step="1" v-model.number="newRoom.max_occupancy"><br>
-        <input type="number" min="0" max="2000" step="100" v-model.number="newRoom.price_in_usd"><br>
-        <button @click="addRoom">add hotel</button>
+      <div v-if="hotels.length > 0 && newRoom" class="section section--bt">
+        <div class="heading heading--pt heading--borderTop">
+          <h3 class="heading__title green_color">Add Room</h3>
+        </div>
+        <div class="col-md-8">
+  
+          <input type="text" v-model="newRoom.name" placeholder="add room name">
+          <div class="heading heading--pt heading--borderTop">
+            <h4 class="heading__title heading__title--sm">select hotel</h4>
+          </div>
+          <select v-model="newRoom.hotelId">
+                <option v-for="hotel in hotels" :value="hotel.id" :key="hotel.id">{{hotel.name}}</option>
+            </select>
+  
+  
+          <div class="heading heading--pt heading--borderTop">
+            <h4 class="heading__title heading__title--sm">descript the room</h4>
+          </div>
+          <textarea v-model="newRoom.description"></textarea>
+  
+          <div class="heading heading--pt heading--borderTop">
+            <h4 class="heading__title heading__title--sm">Price & distance</h4>
+          </div>
+          <div class="row">
+            <div class="col-sm-6"> <input placeholder="max occupancy" type="number" min="0" max="4" step="1" v-model.number="newRoom.max_occupancy"></div>
+            <div class="col-sm-6"><input placeholder="price in usd" type="number" min="0" max="2000" step="100" v-model.number="newRoom.price_in_usd"></div>
+          </div>
+          <button class="btn btn--block green_bg btn--mb" @click="addRoom">add hotel</button>
+        </div>
       </div>
     </div>
   

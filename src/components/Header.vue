@@ -2,8 +2,8 @@
 <template>
 <header class="main-header">
       <div class="main-header__container"><router-link to="/" class="main-header__logo" >
-        <img class="u-hide-sm" src="../assets/img/logo-wide.png"/>
-        <img class="u-hide-lg" src="../assets/img/logo-wh.png"/>
+        <img class="u-hide-sm" :src="require('../assets/img/logo-wide.png')"/>
+        <img class="u-hide-lg" :src="require('../assets/img/logo.png')"/>
       </router-link>
       <a class="main-header__menuToggler"  :class="{'main-header__menuToggler--active':isMenuActive}"  @click.prevent="toggleMenu">
         <span></span><span></span><span></span></a>

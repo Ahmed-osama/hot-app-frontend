@@ -1,4 +1,5 @@
 import class from '@vue/cli-service';
+import class from '@vue/cli-service';
 
 <template>
   <section v-if="confirmation" class="section section--wh section--mb section--fp">
@@ -22,11 +23,11 @@ import class from '@vue/cli-service';
       <span class="btn btn--fwb btn--sm liteGry_bg">{{confirmation.hotel.rating}}</span>
     </p>
   
-    <p class="u-row">
-      <strong>
+    <p class="u-row u-wrap">
+      <strong  class="btn--mb">
             Hotel aminites : 
           </strong>
-      <span class="btn btn--sm liteGry_border" v-for="amn in confirmation.hotel.amenities" :key="amn">
+      <span class="btn btn--sm btn--mb liteGry_border" v-for="amn in confirmation.hotel.amenities" :key="amn">
   <img class="u-icon post-view__liIcon" :src="require(`../assets/img/icons/${amn}.svg`)"/>
                
                 {{amn}}

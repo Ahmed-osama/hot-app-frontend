@@ -22,6 +22,12 @@
 .gry{
     @include colorSet($lightGry, $primaryText);
 }
+.liteGry{
+    @include colorSet(lighten($lightGry,15), $primaryText);
+}
+.darkGry{
+    @include colorSet(darken($lightGry,35), $primaryText);
+}
 .white{//
     @include colorSet($wh, $primaryText);
 }

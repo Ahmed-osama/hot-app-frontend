@@ -70,6 +70,11 @@
       &_hover:hover{
           color:$color;
       }
+      &_border{
+        border:2px solid $color !important;
+        color:darken($color,20);
+        box-shadow: none !important;
+      }
       &_bg, &_bgHover:hover{
           background: $color;
           color:$textColor;

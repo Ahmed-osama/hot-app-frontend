@@ -78,7 +78,7 @@ body {
             display: flex;
             padding: 0;
             @include mediaMin(1024px) {
-               
+               max-width: 1280px;
                 margin: auto;
                 height: 100%;
                 align-items: center;

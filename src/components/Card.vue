@@ -2,7 +2,7 @@
   <div class="post-view post-view--card post-view--cardBounded ">
     <router-link :to="`/hotel-detail/${hotel.id}`" class="post-view__link" :title="hotel.name"></router-link>
     <div class="post-view__img">
-      <span class="post-view__padge btn" :class="classes(hotel.price_category)">{{hotel.price_category}} price</span>
+      <span class="post-view__padge" :class="classes(hotel.price_category)">{{hotel.price_category}} price</span>
       <span class="post-view__icon">
             <svg class="u-icon post-view__icon-inner">
               <use xlink:href="assets/img/icons.svg#icon-play"></use>
@@ -13,13 +13,21 @@
     <div class="post-view__caption" :alt="hotel.name">
       <h4 class="post-view__maxTitle">{{hotel.name}}
       </h4>
-      <div class="post-view__abstract">
+      <ul class="post-view__ul">
   
-        <p> <star-rating read-only :rating="parseInt(hotel.rating.toFixed(1))" :star-size="16" :show-rating="false" /> {{hotel.rating.toFixed(1)}}<br>
-         distance to venue : {{hotel.distance_to_venue}}</p>
+        <li class="post-view__li">
+           <span class="btn btn--sm liteGry_bg btn--noshadow btn--fwb">{{hotel.rating.toFixed(1)}}</span>
+          <star-rating read-only :rating="parseInt(hotel.rating.toFixed(1))" :star-size="16" :show-rating="false" /></li>
+          <li class="post-view__li dark_color">
+            <span class="btn btn--sm liteGry_bg btn--noshadow u-mr-10 btn--fwb">{{hotel.distance_to_venue}}</span>
+            <span class="darkGry_color">meters to venue</span>
+          </li>
+          <li class="post-view__li post-view__li--hidden">
+            <span class="btn btn--sm liteGry_border" v-for="amn in hotel.amenities" :key="amn">{{amn}}</span>
+          </li>
   
        
-      </div>
+      </ul>
     </div>
   </div>
 </template>

@@ -1,7 +1,10 @@
 export const setToLocalCollection = ({ collection, key = false, payload }) => {
-  let getCollection = localStorage.getItem(collection);
-  getCollection =
-    getCollection === "undefined" ? {} : JSON.parse(getCollection);
+  let getCollectionFromStorage = localStorage.getItem(collection);
+
+  let getCollection = !getCollectionFromStorage
+    ? {}
+    : JSON.parse(getCollectionFromStorage);
+
   if (!key) {
     getCollection = payload;
   } else {

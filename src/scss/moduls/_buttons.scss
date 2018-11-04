@@ -179,4 +179,10 @@
         font-weight: 500;
         @include rem(13);
     }
+    &--noshadow{
+        box-shadow: none;
+    }
+    &--fwb{
+        font-weight: bold !important;
+    }
 }

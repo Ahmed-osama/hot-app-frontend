@@ -8,7 +8,7 @@
       </div>
       <div v-for="(hotel,index) in hotels" :key="hotel.id" class="post-view post-view--horizontal post-view--horizontal-sm ">
         <div class="post-view__img">
-          <img :src="require(`../assets/img/hotels/${hotel.images[0]}.jpg`)" />
+          <img v-if="hotel.images[0]!== undefined" :src="require(`../assets/img/hotels/${hotel.images[0]}.jpg`)" />
         </div>
         <div class="post-view__caption">
           <h4 class="post-view__maxTitle">

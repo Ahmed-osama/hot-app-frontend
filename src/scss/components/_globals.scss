@@ -224,6 +224,14 @@
             height: 10px;
             margin-bottom:5px;
         }
+        &--card{
+            border-radius: 3px;
+            height: 320px;
+            margin-bottom: 20px;
+            &-filter{
+                height: 600px;
+            }
+        }
         &--reverse{
             background:rgba(255,255,255,0.05);
         }

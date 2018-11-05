@@ -1,7 +1,6 @@
 
 <template>
   <div class="flex row row--padding">
-    
     <div v-if="hotels.length > 0" class="col-md-4  col-xs-12 u-page-height-scroll">
       <div class="heading heading--pt">
         <h3 class="heading__title ">all hotels</h3>
@@ -17,20 +16,16 @@
           <button class="btn red_bg btn--xs" @click="deleteHotel(hotel.id, index)">remove</button>
         </div>
       </div>
-  
     </div>
+
     <div class="col-md-8  col-xs-12 u-page-height-scroll section--wh">
   
       <div v-if="newHotel" class="col-md-8">
-        
         <div class="heading heading--pt  heading--borderbottom">
           <h3 class="heading__title green_color">add hotel</h3>
         </div>
         <p class="msg msg--note">
           admin panel have the best exprince on desctop and large screens
-        </p>
-        <p class="msg msg--error">
-          plz make sure you fill all the inputs correctlly as form validation in not active yet !
         </p>
         <input type="text" v-model="newHotel.name" placeholder="Hotel name">
         <div class="heading heading--pt heading--borderTop">
@@ -38,28 +33,23 @@
         </div>
         <ul class="row">
           <li v-for="ameniti of amenities" :key="ameniti" class="input-checkbox_-row col-sm-4">
-  
             <span class="input-checkbox">
-                <input  class="input-checkbox__input"  type="checkbox" :id="'amenities'+ameniti" :value="ameniti" v-model="newHotel.amenities">
-                <span class="input-checkbox__preview"></span>
+              <input  class="input-checkbox__input"  type="checkbox" :id="'amenities'+ameniti" :value="ameniti" v-model="newHotel.amenities">
+              <span class="input-checkbox__preview"></span>
             </span>
             <label class="input-checkbox_-_label" :for="'amenities'+ameniti">{{ameniti}}</label>
           </li>
         </ul>
-  
-  
         <div class="heading heading--pt heading--borderTop">
           <h4 class="heading__title heading__title--sm">add hotel images</h4>
         </div>
-  
         <div v-if="newHotel.images.length > 0" class="u-row u-row--wrap">
           <span class="btn liteGry_bg btn--sm btn--round" v-for="(img,i) in newHotel.images" :key="i">
-              <span class="btn--block">image - {{img}}</span>
+            <span class="btn--block">image - {{img}}</span>
           <button @click="removeImg(i)" class="btn btn--xs red_bg btn--square btn--round">X</button>
           </span>
         </div>
         <div class="form-row">
-  
           <input type="text" v-model="newImg">
           <button class="btn btn--mb green_bg" @click="addImg()">+</button>
         </div>
@@ -69,20 +59,16 @@
               <h4 class="heading__title heading__title--sm">select hotel price category</h4>
             </div>
             <select v-model="newHotel.price_category">
-            <option v-for="(priceCategory,index) in priceCategoreis" :selected="index === 1" :key="priceCategory" :value="priceCategory">{{priceCategory}}</option>
-          </select>
+              <option v-for="(priceCategory,index) in priceCategoreis" :selected="index === 1" :key="priceCategory" :value="priceCategory">{{priceCategory}}</option>
+            </select>
           </div>
           <div class="col-sm-6">
             <div class="heading heading--pt heading--borderTop">
               <h4 class="heading__title heading__title--sm">set hotel rating</h4>
             </div>
             <input type="range" v-model.number="newHotel.rating" min="0" max="5">{{newHotel.rating}}
-  
           </div>
         </div>
-  
-  
-  
         <div class="heading heading--pt heading--borderTop">
           <h4 class="heading__title heading__title--sm">set hotel distance to venue</h4>
         </div>
@@ -91,7 +77,10 @@
         <div class="heading heading--pt heading--borderTop">
           <h4 class="heading__title heading__title--sm">fill hotel Description</h4>
         </div>
-        <textarea type="number" v-model="newHotel.description"></textarea><br>
+        <textarea type="number" v-model="newHotel.description"></textarea>
+        <p class="msg msg--error">
+          plz make sure you fill all the inputs correctlly as form validation in not active yet !
+        </p>
         <button class="btn btn--block green_bg btn--mb" @click="addHotel">add hotel</button>
       </div>
   
@@ -106,14 +95,18 @@
             <h4 class="heading__title heading__title--sm">select hotel</h4>
           </div>
           <select v-model="newRoom.hotelId">
-                <option v-for="hotel in hotels" :value="hotel.id" :key="hotel.id">{{hotel.name}}</option>
-            </select>
+                  <option v-for="hotel in hotels" :value="hotel.id" :key="hotel.id">{{hotel.name}}</option>
+              </select>
   
   
           <div class="heading heading--pt heading--borderTop">
             <h4 class="heading__title heading__title--sm">descript the room</h4>
           </div>
           <textarea v-model="newRoom.description"></textarea>
+          <div class="heading heading--pt heading--borderTop">
+            <h4 class="heading__title heading__title--sm">Add image number</h4>
+          </div>
+          <input type="text" v-model="newRoom.image">
   
           <div class="heading heading--pt heading--borderTop">
             <h4 class="heading__title heading__title--sm">Price & distance</h4>
@@ -122,7 +115,10 @@
             <div class="col-sm-6"> <input placeholder="max occupancy" type="number" min="0" max="4" step="1" v-model.number="newRoom.max_occupancy"></div>
             <div class="col-sm-6"><input placeholder="price in usd" type="number" min="0" max="2000" step="100" v-model.number="newRoom.price_in_usd"></div>
           </div>
-          <button class="btn btn--block green_bg btn--mb" @click="addRoom">add hotel</button>
+          <p class="msg msg--error">
+            plz make sure you fill all the inputs correctlly as form validation in not active yet !
+          </p>
+          <button class="btn btn--block green_bg btn--mb" @click="addRoom">Add Room</button>
         </div>
       </div>
     </div>
@@ -169,7 +165,8 @@ export default {
         description: "",
         max_occupancy: "",
         price_in_usd: "",
-        hotelId: ""
+        hotelId: "",
+        image: ""
       };
     },
     addImg() {

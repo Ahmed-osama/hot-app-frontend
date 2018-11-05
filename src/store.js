@@ -10,6 +10,8 @@ export default new Vuex.Store({
     hotels: [],
     showFilters: false,
     user: null,
+    hotelRequestError: false,
+    hotelRequestloading: true,
     filters: {
       distance_to_venue: null,
       rating: null,
@@ -55,10 +57,22 @@ export default new Vuex.Store({
   actions: {
     getHotels: context => {
       if (context.state.hotels.length === 0)
-        axios.get("http://localhost:3000/hotels").then(res => {
-          context.commit("setHotels", res);
-          context.commit("setState", { name: "showFilters", value: true });
-        });
+        axios
+          .get("hotels")
+          .then(res => {
+            context.commit("setHotels", res);
+            context.commit("setState", { name: "showFilters", value: true });
+            context.commit("setState", {
+              name: "hotelRequestloading",
+              value: false
+            });
+          })
+          .catch(() =>
+            context.commit("setState", {
+              name: "hotelRequestError",
+              value: true
+            })
+          );
     },
     logUserin(context, user) {
       if (!user.firstName || !user.lastName) return;

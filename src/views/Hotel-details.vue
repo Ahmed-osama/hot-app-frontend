@@ -1,46 +1,59 @@
 
 <template>
-  <div v-if="hotel">
-    <carousel mouseDrag  :per-page="1" paginationColor="#fff" loop  paginationActiveColor="#feea3a">
-    <slide :key="img"  v-for="img of hotel.images">
-     <img   :src="require(`../assets/img/hotels/${img}.jpg`) " :alt="hotel.name" />
-    </slide>
-     
-  </carousel>
-
-    
-    <section class="section section--wh section--mb section--fp">
+  <div>
+    <transition-group name="fade">
   
-      <h1 class="section__mainTitle">{{hotel.name}}</h1>
-      <p class="u-row">
-        <strong>price average : </strong>
-        <span class="btn btn--sm" :class="labels(hotel.price_category)">{{hotel.price_category}}</span>
-      </p>
-      <p class="u-row">
-        <span>distance to venue : </span>
-        <strong> {{hotel.distance_to_venue}}</strong>
-      </p>
-      <p class="u-row u-wrap">
-        <strong>aminites</strong>
-        <span class="btn btn--sm u-mb-10 liteGry_border" v-for="amn in hotel.amenities" :key="amn">
-          <img class="u-icon post-view__liIcon" :src="require(`../assets/img/icons/${amn}.svg`)"/>
-          {{amn}}
-        </span>
-      </p>
-      <p class="section__abstract u-row">{{hotel.description}}</p>
-    </section> 
-    <transition-group name="slide" v-if="rooms.length > 0">
-      <room-card @bookRoom="bookRoom(room)" v-for="room of visibleRooms" :key="room.id" :room="room" />
-    </transition-group> 
-    <div class="btnHolder btnHolder--tac">
-      <a v-if="maxVisibleRooms!=rooms.length && rooms.length>2" class="btn btn--mb blue_bg"  @click.prevent="showAllRooms"> show {{rooms.length -2}} more rooms</a>
-    </div>
+      <div class="msg msg--error" key="eror" v-if="hotelRequestErr" >
+        <p> couldn't load hotel details  plz make sure you connection is working</p>
+      </div>
+      <div v-if="hotel && !hotelIsLoading" key="hotel">
+        <carousel mouseDrag :per-page="1" paginationColor="#fff" loop paginationActiveColor="#feea3a">
+          <slide :key="img" v-for="img of hotel.images">
+            <img :src="require(`../assets/img/hotels/${img}.jpg`) " :alt="hotel.name" />
+          </slide>
+  
+        </carousel>
+  
+  
+        <section class="section section--wh section--mb section--fp">
+  
+          <h1 class="section__mainTitle">{{hotel.name}}</h1>
+          <p class="u-row">
+            <strong>price average : </strong>
+            <span class="btn btn--sm" :class="labels(hotel.price_category)">{{hotel.price_category}}</span>
+          </p>
+          <p class="u-row">
+            <span>distance to venue : </span>
+            <strong> {{hotel.distance_to_venue}}</strong>
+          </p>
+          <p class="u-row u-wrap">
+            <strong>aminites</strong>
+            <span class="btn btn--sm u-mb-10 liteGry_border" v-for="amn in hotel.amenities" :key="amn">
+              <img class="u-icon post-view__liIcon" :src="require(`../assets/img/icons/${amn}.svg`)"/>
+              {{amn}}
+            </span>
+          </p>
+          <p class="section__abstract u-row">{{hotel.description}}</p>
+        </section>
+        <transition-group name="slide" v-if="rooms.length > 0">
+          <room-card @bookRoom="bookRoom(room)" v-for="room of visibleRooms" :key="room.id" :room="room" />
+        </transition-group>
+        <div class="btnHolder btnHolder--tac">
+          <a v-if="maxVisibleRooms!=rooms.length && rooms.length>2" class="btn btn--mb blue_bg" @click.prevent="showAllRooms"> show {{rooms.length -2}} more rooms</a>
+        </div>
+      </div>
+      <loading v-if="!hotel && hotelIsLoading && !hotelRequestErr" key="loading"/>
+    </transition-group>
+  
+  
+  
   </div>
 </template>
 
 <script>
 import confirmationFormatter from "../modules/confirmationFormatter";
 import Room from "@/components/Room.card.vue";
+import loading from "@/components/loading.vue";
 import { setToLocalCollection, labels } from "../modules/utils";
 import { mapActions, mapState } from "vuex";
 import { Carousel, Slide } from "vue-carousel";
@@ -52,16 +65,18 @@ export default {
     return {
       hotel: null,
       rooms: [],
-      maxVisibleRooms: 2,
-      showLogin: false,
 
+      showLogin: false,
+      hotelIsLoading: true,
+      hotelRequestErr: false,
       cacheConfirmation: null
     };
   },
   components: {
     "room-card": Room,
     Carousel,
-    Slide
+    Slide,
+    loading
   },
   methods: {
     labels,
@@ -108,6 +123,9 @@ export default {
     ...mapActions(["logUserin"])
   },
   computed: {
+    maxVisibleRooms: function() {
+      return this.rooms.length > 2 ? 2 : this.rooms.length;
+    },
     ...mapState(["user"]),
     visibleRooms() {
       let visibleRooms = [...this.rooms].sort(
@@ -119,21 +137,34 @@ export default {
   },
   mounted() {
     let self = this;
-    Axios.all([this.loadHotel(), this.loadRooms()]).then(
-      Axios.spread(function(hotel, rooms) {
-        self.hotel = hotel.data;
-        self.rooms.push(...rooms.data);
-      })
-    );
+    Axios.all([this.loadHotel(), this.loadRooms()])
+      .then(
+        Axios.spread(function(hotel, rooms) {
+          console.log("ssss");
+          self.hotel = hotel.data;
+          if (Array.isArray(rooms.data)) {
+            self.rooms.push(...rooms.data);
+          } else {
+            self.rooms.push(rooms.data);
+          }
+          self.hotelRequestErr = false;
+          self.hotelIsLoading = false;
+        })
+      )
+      .catch(() => {
+        self.hotelRequestErr = true;
+      });
   }
 };
 </script>
+
 <style lang="scss">
 .VueCarousel {
   position: relative;
   border-radius: 3px 3px 0 0;
   overflow: hidden;
 }
+
 .VueCarousel-slide {
   height: 40vh;
   max-height: 400px;
@@ -151,11 +182,13 @@ export default {
     margin: auto;
   }
 }
+
 .VueCarousel-pagination {
   position: absolute;
   bottom: 10px;
   z-index: 1;
 }
+
 .VueCarousel-navigation-next,
 .VueCarousel-navigation-prev {
   transform: translateX(50px);

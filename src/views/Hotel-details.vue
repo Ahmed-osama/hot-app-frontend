@@ -65,7 +65,7 @@ export default {
     return {
       hotel: null,
       rooms: [],
-
+      maxVisibleRooms: 0,
       showLogin: false,
       hotelIsLoading: true,
       hotelRequestErr: false,
@@ -123,9 +123,6 @@ export default {
     ...mapActions(["logUserin"])
   },
   computed: {
-    maxVisibleRooms: function() {
-      return this.rooms.length > 2 ? 2 : this.rooms.length;
-    },
     ...mapState(["user"]),
     visibleRooms() {
       let visibleRooms = [...this.rooms].sort(
@@ -137,6 +134,7 @@ export default {
   },
   mounted() {
     let self = this;
+
     Axios.all([this.loadHotel(), this.loadRooms()])
       .then(
         Axios.spread(function(hotel, rooms) {
@@ -149,9 +147,10 @@ export default {
           }
           self.hotelRequestErr = false;
           self.hotelIsLoading = false;
+          self.maxVisibleRooms = self.rooms.length > 2 ? 2 : self.rooms.length;
         })
       )
-      .catch(() => {
+      .catch(err => {
         self.hotelRequestErr = true;
       });
   }

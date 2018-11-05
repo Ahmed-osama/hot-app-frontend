@@ -38,3 +38,5 @@ export function labels(val) {
     green_bg: val === "low"
   };
 }
+export const pickProps = (object, props) =>
+  props.reduce((a, b) => ({ ...a, [b]: object[b] }), {});

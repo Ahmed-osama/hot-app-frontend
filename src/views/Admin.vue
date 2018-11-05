@@ -81,7 +81,7 @@
         <p class="msg msg--error">
           plz make sure you fill all the inputs correctlly as form validation in not active yet !
         </p>
-        <button class="btn btn--block green_bg btn--mb" @click="addHotel">add hotel</button>
+        <button class="btn btn--block green_bg btn--mb" :class="{'btn--loading':addHotelLoading}" @click="addHotel">add hotel</button>
       </div>
   
       <div v-if="hotels.length > 0 && newRoom" class="section section--bt">
@@ -118,7 +118,7 @@
           <p class="msg msg--error">
             plz make sure you fill all the inputs correctlly as form validation in not active yet !
           </p>
-          <button class="btn btn--block green_bg btn--mb" @click="addRoom">Add Room</button>
+          <button class="btn btn--block green_bg btn--mb" :class="{'btn--loading':addRoomLoading}" @click="addRoom">Add Room</button>
         </div>
       </div>
     </div>
@@ -139,7 +139,9 @@ export default {
       priceCategoreis: price_category,
       newImg: "",
       newHotel: null,
-      newRoom: null
+      newRoom: null,
+      addHotelLoading: false,
+      addRoomLoading: false
     };
   },
   computed: {
@@ -147,26 +149,28 @@ export default {
   },
   methods: {
     createNewHotel() {
+      this.newHotel = null;
       this.newHotel = {
         id: uuid(),
-        amenities: [],
-        name: "",
-        images: [],
-        description: "",
-        distance_to_venue: 0,
-        rating: 0,
-        price_category: ""
+        amenities: ["gym", "pool"],
+        name: "Newly created hotel",
+        images: [1, 2, 3],
+        description: "dummy description to save you some clicks :)",
+        distance_to_venue: 110,
+        rating: 4,
+        price_category: "low"
       };
     },
     createNewRoom() {
+      this.newRoom = null;
       this.newRoom = {
         id: uuid(),
-        name: "",
-        description: "",
-        max_occupancy: "",
-        price_in_usd: "",
+        name: "just created new room",
+        description: "dummy description to save you some clicks :) again",
+        max_occupancy: 2,
+        price_in_usd: 200,
         hotelId: "",
-        image: ""
+        image: 1
       };
     },
     addImg() {
@@ -182,14 +186,18 @@ export default {
       });
     },
     addHotel() {
+      this.addHotelLoading = true;
       Axios.post(`hotels/`, this.newHotel).then(data => {
         this.$store.commit("addHotel", this.newHotel);
         this.createNewHotel();
+        this.addHotelLoading = false;
       });
     },
     addRoom() {
+      this.addRoomLoading = true;
       Axios.post(`rooms/`, this.newRoom).then(data => {
         this.createNewRoom();
+        this.addRoomLoading = false;
       });
     },
     ...mapActions(["getHotels"])

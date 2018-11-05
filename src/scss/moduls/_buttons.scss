@@ -135,12 +135,28 @@
         }
         font-size: 0;
         position: relative;
+        @keyframes pulse {
+            0% {
+              -moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0.4);
+              box-shadow: 0 0 0 0 rgba(255,255,255, 0.4);
+            }
+            70% {
+                -moz-box-shadow: 0 0 0 10px rgba(255,255,255, 0);
+                box-shadow: 0 0 0 10px rgba(255,255,255, 0);
+            }
+            100% {
+                -moz-box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+                box-shadow: 0 0 0 0 rgba(255,255,255, 0);
+            }
+          }
+
         &:after{
+            animation: pulse 2s infinite;
             content:"";
             position: absolute;
             @include absoluteCenter();
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             background-color: $wh;
             animation-name: pulse;
             animation-iteration-count: infinite;

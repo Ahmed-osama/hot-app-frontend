@@ -1,6 +1,6 @@
 import uuid from "uuid/v1";
-const pickProps = (object, props) =>
-  props.reduce((a, b) => ({ ...a, [b]: object[b] }), {});
+import { pickProps } from "./utils";
+
 export default function confirmationFormatter(hotel, room) {
   return {
     id: uuid(),

@@ -1,5 +1,5 @@
-# trv-venue-hotel-client
-simple hotels booking app consumes data from json server app [hot-app-api](https://github.com/Ahmed-osama/hot-app-api)
+# HOT-APP-FRONTEND
+simple hotels booking app consumes data from json server app [hot-app-api](https://github.com/Ahmed-osama/hot-app-backend)
 
 
 ## Project setup

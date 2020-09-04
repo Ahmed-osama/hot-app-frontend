@@ -33,7 +33,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "jest": "^23.6.0",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.13.1",
     "pug-plain-loader": "^1.0.0",
     "regenerator-runtime": "^0.12.1",
     "sass-loader": "^7.1.0",
